@@ -7,5 +7,5 @@ Se trata de una aplicación web en la que se permitirá interactuar a dos tipos 
 
 
 Proyecto creado por:
- Alejandro París Garcia
+ Alejandro París Garcia y
 Mikel Ballesteros Rodriguez 
