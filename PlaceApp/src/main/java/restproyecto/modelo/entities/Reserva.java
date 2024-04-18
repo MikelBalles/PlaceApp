@@ -4,6 +4,7 @@ package restproyecto.modelo.entities;
 import java.io.Serializable;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
+import java.sql.Date;
 
 
 /**
@@ -20,15 +21,23 @@ public class Reserva implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="ID_RESERVA")
 	private int idReserva;
-
-	private int cantidad;
+	
+	@Column(name="FECHA_INICIO")
+	@Temporal(TemporalType.DATE)
+    private Date fechaInicio;
+	
+	@Column(name="FECHA_FIN")
+	@Temporal(TemporalType.DATE)
+    private Date fechaFin;
+	
+	private int enabled;
 
 	private String observaciones;
 
 	@Column(name="PRECIO_VENTA")
 	private BigDecimal precioVenta;
 
-	//uni-directional many-to-one association to Evento
+	//uni-directional many-to-one association to Espacios
 	@ManyToOne
 	@JoinColumn(name="ID_ESPACIO")
 	private Espacio espacio;
@@ -48,13 +57,28 @@ public class Reserva implements Serializable {
 	public void setIdReserva(int idReserva) {
 		this.idReserva = idReserva;
 	}
-
-	public int getCantidad() {
-		return this.cantidad;
+	public Date getFechaInicio() {
+		return this.fechaInicio;
 	}
 
-	public void setCantidad(int cantidad) {
-		this.cantidad = cantidad;
+	public void setFechaInicio(Date fechaInicio) {
+		this.fechaInicio = fechaInicio;
+	}
+	
+	public Date getFechaFin() {
+		return this.fechaFin;
+	}
+
+	public void setFechaFin(Date fechaFin) {
+		this.fechaFin = fechaFin;
+	}
+
+	public int getEnabled() {
+		return this.enabled;
+	}
+
+	public void setEnabled(int enabled) {
+		this.enabled = enabled;
 	}
 
 	public String getObservaciones() {
@@ -77,7 +101,7 @@ public class Reserva implements Serializable {
 		return this.espacio;
 	}
 
-	public void setEvento(Espacio espacio) {
+	public void setEspacio(Espacio espacio) {
 		this.espacio = espacio;
 	}
 

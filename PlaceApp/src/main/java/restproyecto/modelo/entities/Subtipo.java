@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 
@@ -15,30 +17,32 @@ import jakarta.persistence.Table;
  * 
  */
 @Entity
-@Table(name="tipos")
-@NamedQuery(name="Tipo.findAll", query="SELECT t FROM Tipo t")
-public class Tipo implements Serializable {
+@Table(name="subtipos")
+@NamedQuery(name="Subtipo.findAll", query="SELECT s FROM Subtipo s")
+public class Subtipo implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="ID_TIPO")
-	private int idTipo;
-	
+	@Column(name="ID_SUBTIPO")
+	private int idSubtipo;
+
 	private String nombre;
 	
-	private String descripcion;
-	
-	
-	public Tipo() {
+	//uni-directional many-to-one association to Subtipo
+	@ManyToOne
+	@JoinColumn(name="ID_TIPO")
+	private Tipo tipo;
+
+	public Subtipo() {
 	}
 
-	public int getIdTipo() {
-		return this.idTipo;
+	public int getIdSubtipo() {
+		return this.idSubtipo;
 	}
 
-	public void setIdTipo(int idTipo) {
-		this.idTipo = idTipo;
+	public void setIdSubtipo(int idSubtipo) {
+		this.idSubtipo = idSubtipo;
 	}
 
 	public String getNombre() {
@@ -48,16 +52,15 @@ public class Tipo implements Serializable {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
-	public String getDescripcion() {
-		return this.descripcion;
+	public Tipo getTipo() {
+		return this.tipo;
 	}
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
+	public void setTipo(Tipo tipo) {
+		this.tipo = tipo;
 	}
-	
-	
 
-	
+
+
 }
+

@@ -30,32 +30,25 @@ import jakarta.persistence.TemporalType;
 		@GeneratedValue(strategy=GenerationType.IDENTITY)
 		@Column(name="ID_ESPACIO")
 		private int idEspacio;
-
-		@Column(name="AFORO_MAXIMO")
-		private int aforoMaximo;
-
-		private String descripcion;
-
-		private String destacado;
-
-		private String direccion;
-
-		private int duracion;
-
-		private String estado;
-
-		@Temporal(TemporalType.DATE)
-		@Column(name="FECHA_INICIO")
-		private Date fechaInicio;
-
+		
 		private String nombre;
-
+		
+		private String descripcion;
+		
+		private String direccion;
+		
+		private int cp;
+		
+		private int enabled;
+		
 		private BigDecimal precio;
-
-		//uni-directional many-to-one association to Tipo
+		
+		//uni-directional many-to-one association to provincias
 		@ManyToOne
-		@JoinColumn(name="ID_TIPO")
-		private Tipo tipo;
+		@JoinColumn(name="ID_PROV")
+		private Provincia provincia;
+
+		
 
 		public Espacio() {
 		}
@@ -67,14 +60,15 @@ import jakarta.persistence.TemporalType;
 		public void setIdEvento(int idEspacio) {
 			this.idEspacio = idEspacio;
 		}
-
-		public int getAforoMaximo() {
-			return this.aforoMaximo;
+		
+		public String getNombre() {
+			return this.nombre;
 		}
 
-		public void setAforoMaximo(int aforoMaximo) {
-			this.aforoMaximo = aforoMaximo;
+		public void setNombre(String nombre) {
+			this.nombre = nombre;
 		}
+
 
 		public String getDescripcion() {
 			return this.descripcion;
@@ -83,15 +77,6 @@ import jakarta.persistence.TemporalType;
 		public void setDescripcion(String descripcion) {
 			this.descripcion = descripcion;
 		}
-
-		public String getDestacado() {
-			return this.destacado;
-		}
-
-		public void setDestacado(String destacado) {
-			this.destacado = destacado;
-		}
-
 		public String getDireccion() {
 			return this.direccion;
 		}
@@ -99,38 +84,23 @@ import jakarta.persistence.TemporalType;
 		public void setDireccion(String direccion) {
 			this.direccion = direccion;
 		}
-
-		public int getDuracion() {
-			return this.duracion;
+	
+		public int getCp() {
+			return this.cp;
 		}
 
-		public void setDuracion(int duracion) {
-			this.duracion = duracion;
+		public void setCp(int cp) {
+			this.cp = cp;
 		}
 
-		public String getEstado() {
-			return this.estado;
+		
+
+		public int getEnabled() {
+			return this.enabled;
 		}
 
-		public void setEstado(String estado) {
-			this.estado = estado;
-		}
-
-		public Date getFechaInicio() {
-			return this.fechaInicio;
-		}
-
-		public void setFechaInicio(Date fechaInicio) {
-			this.fechaInicio = fechaInicio;
-		}
-
-
-		public String getNombre() {
-			return this.nombre;
-		}
-
-		public void setNombre(String nombre) {
-			this.nombre = nombre;
+		public void setEnabled(int enabled) {
+			this.enabled = enabled;
 		}
 
 		public BigDecimal getPrecio() {
@@ -141,12 +111,14 @@ import jakarta.persistence.TemporalType;
 			this.precio = precio;
 		}
 
-		public Tipo getTipo() {
-			return this.tipo;
+		
+		
+		public Provincia getProvincia() {
+			return this.provincia;
 		}
 
-		public void setTipo(Tipo tipo) {
-			this.tipo = tipo;
+		public void setProvincia(Provincia provincia) {
+			this.provincia = provincia;
 		}
 
 }

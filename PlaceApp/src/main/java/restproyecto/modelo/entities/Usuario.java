@@ -20,11 +20,21 @@ public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	
 	private String username;
+	
+	private String password;
+
+	private String nombre;
+	
 
 	private String apellidos;
 
 	private String direccion;
+	
+	private int telefono;
+	
 
 	private int enabled;
 
@@ -32,9 +42,6 @@ public class Usuario implements Serializable {
 	@Column(name="FECHA_REGISTRO")
 	private Date fechaRegistro;
 
-	private String nombre;
-
-	private String password;
 
 	//uni-directional many-to-many association to Perfil
 	@ManyToMany
