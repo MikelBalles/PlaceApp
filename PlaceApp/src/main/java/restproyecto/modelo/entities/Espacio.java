@@ -15,14 +15,24 @@ import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 /**
 	 * The persistent class for the eventos database table.
 	 * 
 	 */
+	@AllArgsConstructor
+	@NoArgsConstructor
+	@Data
+	@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 	@Entity
 	@Table(name="espacios")
-	@NamedQuery(name="Espacio.findAll", query="SELECT e FROM Espacio e")
 	public class Espacio implements Serializable {
 		private static final long serialVersionUID = 1L;
 
@@ -41,84 +51,16 @@ import jakarta.persistence.TemporalType;
 		
 		private int enabled;
 		
-		private BigDecimal precio;
+		private double precio;
 		
-		//uni-directional many-to-one association to provincias
 		@ManyToOne
 		@JoinColumn(name="ID_PROV")
 		private Provincia provincia;
-
 		
-
-		public Espacio() {
-		}
-
-		public int getIdEspacio() {
-			return this.idEspacio;
-		}
-
-		public void setIdEvento(int idEspacio) {
-			this.idEspacio = idEspacio;
-		}
-		
-		public String getNombre() {
-			return this.nombre;
-		}
-
-		public void setNombre(String nombre) {
-			this.nombre = nombre;
-		}
-
-
-		public String getDescripcion() {
-			return this.descripcion;
-		}
-
-		public void setDescripcion(String descripcion) {
-			this.descripcion = descripcion;
-		}
-		public String getDireccion() {
-			return this.direccion;
-		}
-
-		public void setDireccion(String direccion) {
-			this.direccion = direccion;
-		}
-	
-		public int getCp() {
-			return this.cp;
-		}
-
-		public void setCp(int cp) {
-			this.cp = cp;
-		}
-
-		
-
-		public int getEnabled() {
-			return this.enabled;
-		}
-
-		public void setEnabled(int enabled) {
-			this.enabled = enabled;
-		}
-
-		public BigDecimal getPrecio() {
-			return this.precio;
-		}
-
-		public void setPrecio(BigDecimal precio) {
-			this.precio = precio;
-		}
-
+		@ManyToOne
+		@JoinColumn(name="ID_USUARIO")
+		private Usuario usuario;
 		
 		
-		public Provincia getProvincia() {
-			return this.provincia;
-		}
-
-		public void setProvincia(Provincia provincia) {
-			this.provincia = provincia;
-		}
 
 }

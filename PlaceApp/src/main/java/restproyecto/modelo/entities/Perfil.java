@@ -10,11 +10,15 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
-/**
- * The persistent class for the perfiles database table.
- * 
- */
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name="perfiles")
 @NamedQuery(name="Perfil.findAll", query="SELECT p FROM Perfil p")
@@ -28,42 +32,6 @@ public class Perfil implements Serializable {
 
 	private String nombre;
 
-	public Perfil() {
-	}
-
-	public int getIdPerfil() {
-		return this.idPerfil;
-	}
-
-	public void setIdPerfil(int idPerfil) {
-		this.idPerfil = idPerfil;
-	}
-
-	public String getNombre() {
-		return this.nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(idPerfil);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Perfil other = (Perfil) obj;
-		return idPerfil == other.idPerfil;
-	}
-	
 	
 
 }

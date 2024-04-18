@@ -4,20 +4,22 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-
-/**
- * The persistent class for the usuarios database table.
- * 
- */
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name="extras")
-@NamedQuery(name="Extra.findAll", query="SELECT e FROM Extra e")
 public class Extra implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -30,43 +32,10 @@ public class Extra implements Serializable {
 	
 	private String descripcion;
 	
-	private BigDecimal precio;
+	private double precio;
 	
-	
-	public Extra() {
-	}
-
-	public int getIdExtra() {
-		return this.idExtra;
-	}
-
-	public void setIdExtra(int idExtra) {
-		this.idExtra = idExtra;
-	}
-	
-	public String getNombre() {
-		return this.nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public String getDescripcion() {
-		return this.descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-	
-
-	public BigDecimal getPrecio() {
-		return this.precio;
-	}
-
-	public void setPrecio(BigDecimal precio) {
-		this.precio = precio;
-	}
+	@ManyToOne
+	@JoinColumn(name="ID_ESPACIO")
+	private Espacio espacio;
 
 }

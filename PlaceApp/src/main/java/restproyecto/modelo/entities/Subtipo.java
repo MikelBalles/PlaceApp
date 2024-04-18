@@ -11,11 +11,15 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
-/**
- * The persistent class for the tipos database table.
- * 
- */
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name="subtipos")
 @NamedQuery(name="Subtipo.findAll", query="SELECT s FROM Subtipo s")
@@ -29,36 +33,10 @@ public class Subtipo implements Serializable {
 
 	private String nombre;
 	
-	//uni-directional many-to-one association to Subtipo
 	@ManyToOne
 	@JoinColumn(name="ID_TIPO")
 	private Tipo tipo;
 
-	public Subtipo() {
-	}
-
-	public int getIdSubtipo() {
-		return this.idSubtipo;
-	}
-
-	public void setIdSubtipo(int idSubtipo) {
-		this.idSubtipo = idSubtipo;
-	}
-
-	public String getNombre() {
-		return this.nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-	public Tipo getTipo() {
-		return this.tipo;
-	}
-
-	public void setTipo(Tipo tipo) {
-		this.tipo = tipo;
-	}
 
 
 
