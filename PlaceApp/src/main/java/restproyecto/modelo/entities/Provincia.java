@@ -20,13 +20,14 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name="provincias")
-@NamedQuery(name="Provincia.findAll", query="SELECT pr FROM Provincia pr")
+
 public class Provincia implements Serializable {
 	private static final long serialVersionUID = 1L; 
 		
 		@Id
 		@GeneratedValue(strategy=GenerationType.IDENTITY)
 		@Column(name="ID_PROV")
+		
 		private int idProv;
 
 		private String nombre;

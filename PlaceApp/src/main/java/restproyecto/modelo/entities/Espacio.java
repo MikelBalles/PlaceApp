@@ -61,6 +61,8 @@ import lombok.ToString;
 		@JoinColumn(name="ID_USUARIO")
 		private Usuario usuario;
 		
-		
+		@ManyToOne
+		@JoinColumn(name="ID_SUBTIPO")
+		private Subtipo subtipo;
 
 }
