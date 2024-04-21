@@ -19,4 +19,9 @@ public class ProvinciaServiceImplMy8Jpa implements ProvinciaService{
 		return prepo.findAll();
 	}
 
+	@Override
+	public Provincia buscarPorId(int idProv) {
+		return prepo.findById(idProv).orElse(null);
+	}
+
 }

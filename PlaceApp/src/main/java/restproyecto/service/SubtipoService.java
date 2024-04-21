@@ -7,8 +7,10 @@ import restproyecto.modelo.entities.Subtipo;
 public interface SubtipoService {
 	
 	
+		
+	List<Subtipo> buscarSubtipo();
 	
-List<Subtipo> buscarSubtipo();
-
-List<SubtipoEspacioDto> obtenerSubtipoPorEspacio(int idEspacio);
+	List<SubtipoEspacioDto> obtenerSubtipoPorEspacio(int idEspacio);
+	
+	Subtipo buscarPorId(int idSubtipo);
 }

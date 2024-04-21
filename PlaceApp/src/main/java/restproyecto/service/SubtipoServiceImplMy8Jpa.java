@@ -25,5 +25,9 @@ public class SubtipoServiceImplMy8Jpa implements SubtipoService {
 		// TODO Auto-generated method stub
 		return srepo.findSubtipoByIdEspacio(idEspacio);
 	}
+	@Override
+	public Subtipo buscarPorId(int idSubtipo) {
+		return srepo.findById(idSubtipo).orElse(null);
+	}
 
 }

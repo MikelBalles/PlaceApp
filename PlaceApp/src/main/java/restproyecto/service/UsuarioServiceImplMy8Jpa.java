@@ -11,11 +11,13 @@ import restproyecto.modelo.repository.UsuarioRepository;
 
 @Repository
 public class UsuarioServiceImplMy8Jpa implements UsuarioService {
+	
+	@Autowired
+	UsuarioRepository urepo;
 
 	@Override
-	public List<Usuario> obtenerUsuarioPorId(int username) {
-		// TODO Auto-generated method stub
-		return null;
+	public Usuario obtenerUsuarioPorId(String username) {
+		return urepo.findById(username).orElse(null);
 	}
 
 	

@@ -1,0 +1,22 @@
+{
+    "username": "mikel@fp.com",
+    "nombreEspacio": "Pistas de fútbol Zarautz",
+    "direccion": "Asti Auzoa, s/n, 20800 Zarautz, Gipuzkoa",
+    "descripcion": "Campo de fútbol 11 de cesped artificial",
+    "cp": 20800,
+    "idProv": 22,
+    "idSubtipo": 4,
+    "precio": 50.0,
+    "extras": [
+        {
+            "nombre": "Iluminación campo de fútbol",
+            "descripcion": "Focos led de última generación que garantizan una iluminación perfecta",
+            "precio": 10.0
+        },
+        {
+            "nombre": "Alquiler de balones",
+            "descripcion": "Se prestan un total de 2 balones oficiales de la Champions",
+            "precio": 3.0
+        }
+    ]
+}

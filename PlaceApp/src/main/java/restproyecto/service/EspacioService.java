@@ -9,11 +9,11 @@ import restproyecto.modelo.entities.Extra;
 
 public interface EspacioService {
 	
-	 Espacio darAltaEspacio(EspacioDto espacioDto);
+	 Espacio darAltaEspacio(Espacio espacio);
 	
 	List<Espacio> buscarTodosEspacios();
 	
-
+	Espacio buscarPorId(int idEspacio);
 	
 	List<Espacio> obtenerEspaciosDeUsuario(String username);
 }

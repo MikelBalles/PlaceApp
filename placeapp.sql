@@ -23,7 +23,7 @@ CREATE TABLE `tipos` (
 
 LOCK TABLES `tipos` WRITE;
 /*!40000 ALTER TABLE `tipos` DISABLE KEYS */;
-INSERT INTO `tipos` VALUES (1,'Oficina','Espacios destinados al trabajo y reuniones'),(2,'Restaurante','Lugares para disfrutar de comida y bebida'),(3,'Gimnasio','Espacios para realizar actividad física');
+INSERT INTO `tipos` VALUES (1,'Oficina','Espacios destinados al trabajo y reuniones'),(2,'Restaurante','Lugares para disfrutar de comida y bebida'),(3,'Gimnasio','Espacios para realizar actividad física'),(4,'Espacios Deportivos','Todo tipo de instalaciones deportivas');
 /*!40000 ALTER TABLE `tipos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -51,7 +51,7 @@ CREATE TABLE `subtipos` (
 
 LOCK TABLES `subtipos` WRITE;
 /*!40000 ALTER TABLE `subtipos` DISABLE KEYS */;
-INSERT INTO `subtipos` VALUES (1,'Coworking',1),(2,'Sala de conferencias',1),(3,'Cafetería',2),(4,'Restaurante de comida rápida',2),(5,'Sala de pesas',3),(6,'Clases de fitness',3);
+INSERT INTO `subtipos` VALUES (1,'Coworking',1),(2,'Sala de conferencias',1),(3,'Cafetería',2),(4,'Restaurante de comida rápida',2),(5,'Sala de pesas',3),(6,'Clases de fitness',3),(7,'Pistas de fútbol',4);
 /*!40000 ALTER TABLE `subtipos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -301,17 +301,6 @@ LOCK TABLES `reservas` WRITE;
 INSERT INTO `reservas` VALUES (1,1,'usuario1@example.com',25.00,'2023-04-01 10:00:00','2023-04-02 10:00:00',1,'Reunión de trabajo'),(2,2,'usuario2@example.com',60.00,'2023-04-03 10:00:00','2023-04-04 10:00:00',1,'Cena de negocios'),(3,3,'usuario3@example.com',40.00,'2023-04-05 10:00:00','2023-04-06 10:00:00',1,'Entrenamiento personal');
 /*!40000 ALTER TABLE `reservas` ENABLE KEYS */;
 UNLOCK TABLES;
-
-
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2024-04-18 19:59:17
 

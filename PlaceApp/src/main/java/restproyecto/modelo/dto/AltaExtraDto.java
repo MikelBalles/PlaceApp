@@ -1,6 +1,6 @@
 package restproyecto.modelo.dto;
 
-import java.sql.Date;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-public class ExtraDto {
-	 private int idExtra;
+public class AltaExtraDto {
 	 private String nombre;
+	 private String descripcion;
 	 private double precio;
 }
