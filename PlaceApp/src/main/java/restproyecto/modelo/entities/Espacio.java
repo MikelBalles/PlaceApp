@@ -58,7 +58,7 @@ import lombok.ToString;
 		private Provincia provincia;
 		
 		@ManyToOne
-		@JoinColumn(name="ID_USUARIO")
+		@JoinColumn(name="USERNAME")
 		private Usuario usuario;
 		
 		@ManyToOne

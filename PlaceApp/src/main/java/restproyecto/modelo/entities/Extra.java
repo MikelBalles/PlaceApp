@@ -38,4 +38,6 @@ public class Extra implements Serializable {
 	@JoinColumn(name="ID_ESPACIO")
 	private Espacio espacio;
 
+
+
 }

@@ -12,4 +12,6 @@ public interface ProvinciaRepository extends JpaRepository <Provincia,Integer> {
 
 	@Query("SELECT p FROM Provincia p")
 	List<Provincia> buscarProvincias();
+	
+	
 }
