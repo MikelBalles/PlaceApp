@@ -20,6 +20,12 @@ public class UsuarioServiceImplMy8Jpa implements UsuarioService {
 		return urepo.findById(username).orElse(null);
 	}
 
+	@Override
+	public Usuario login(String username, String password) {
+		// TODO Auto-generated method stub
+		return urepo.usuarioPorUsernameAndPassword(username, password);
+	}
+
 	
 
 }

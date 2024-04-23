@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,7 +20,10 @@ import restproyecto.modelo.dto.EspacioDto;
 import restproyecto.modelo.dto.EspacioUsuarioDto;
 import restproyecto.modelo.dto.ExtraDto;
 import restproyecto.modelo.dto.ReservaEspacioDto;
+import restproyecto.modelo.dto.ReservaUsuarioDto;
 import restproyecto.modelo.dto.SubtipoEspacioDto;
+import restproyecto.modelo.dto.UsuarioDatosDto;
+import restproyecto.modelo.dto.UsuarioPerfilDto;
 import restproyecto.modelo.entities.Espacio;
 import restproyecto.modelo.entities.Extra;
 import restproyecto.modelo.entities.Perfil;
@@ -28,6 +33,7 @@ import restproyecto.modelo.entities.Subtipo;
 import restproyecto.modelo.entities.Usuario;
 import restproyecto.service.EspacioService;
 import restproyecto.service.ExtraService;
+import restproyecto.service.PerfilService;
 import restproyecto.service.ProvinciaService;
 import restproyecto.service.ReservaService;
 import restproyecto.service.SubtipoService;
@@ -53,6 +59,8 @@ public class PropietarioRestController {
 	private EspacioService espacioService;
 	@Autowired
 	private ExtraService extraService;
+	@Autowired
+	private PerfilService perfilService;
 	
 	/////Mostrar toda las provincias
 	@GetMapping("/provincias")
@@ -188,13 +196,78 @@ public class PropietarioRestController {
 		
 		return eDto;
 	}
+/////Detalles de una reserva, muestra el nombre y detalles del espacio, nombre y detalle del usuario que ha realizado la reserva.
+
+	@GetMapping("espacio/reserva/usuario/{idReserva}")
+	public List<ReservaUsuarioDto> ObtenerReservaUsuario(@PathVariable int idReserva) {
+		List<Reserva> listaReservas = new ArrayList<>();
+		listaReservas = reservaService.obtenerReservaUsuario(idReserva);
+		List<ReservaUsuarioDto> reservaDto = new ArrayList<>();
+		for (Reserva r:listaReservas) {
+			ReservaUsuarioDto rDto = new ReservaUsuarioDto();
+			rDto.setIdReserva(r.getIdReserva());
+			rDto.setNombreEspacio(r.getEspacio().getNombre());
+			rDto.setDescripcionEspacio(r.getEspacio().getDescripcion());
+			rDto.setDireccionEspacio(r.getEspacio().getDireccion());
+			rDto.setNombreUsuario(r.getUsuario().getNombre());
+			rDto.setTelefonoUsuario(r.getUsuario().getTelefono());
+			rDto.setDireccionUsuario(r.getUsuario().getDireccion());
+			rDto.setFechaInicioReserva(r.getFechaInicio());
+			rDto.setFechaFinReserva(r.getFechaFin());
+			rDto.setPrecioVenta(r.getPrecioVenta());
+			rDto.setObservacionReserva(r.getObservaciones());
+			rDto.setNombreUsurnameReserva(r.getUsuario().getUsername());
+			rDto.setTlfUsernameResrva(r.getUsuario().getTelefono());
+			rDto.setDireccionUsernameReserva(r.getUsuario().getDireccion());
+			
+			reservaDto.add(rDto);
+			
+		}
+		return reservaDto;
 		
+			
+		
+
+	}
 	
+	////Validacion de usuario con username+password,una vez el usuario autenticado mostrar los detalles del usuario
+	 @PostMapping("/iniciarSesion")
+	    public ResponseEntity<?> iniciarSesion(@RequestBody Usuario usuario) {
+	        Usuario usuarioAutenticado = usuarioService.login(usuario.getUsername(), usuario.getPassword());
+	        if (usuarioAutenticado != null) {
+	            // Construir un objeto DTO con la información requerida
+	            UsuarioPerfilDto usuarioPerfilDto = new UsuarioPerfilDto();
+	            usuarioPerfilDto.setUsername(usuarioAutenticado.getUsername());
+	            usuarioPerfilDto.setNombreUsuario(usuarioAutenticado.getNombre());
+	            usuarioPerfilDto.setIdPerfil(usuarioAutenticado.getPerfil().getIdPerfil());
+	            usuarioPerfilDto.setNombrePerfil(usuarioAutenticado.getPerfil().getNombre());
+	            return ResponseEntity.ok(usuarioPerfilDto);
+	        } else {
+	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Credenciales inválidas");
+	        }
+	    }
 	
-	
-	
-	
-	
-	
-	
+/////mostrar todo los perfiles disponibles
+	 @GetMapping("/perfiles")
+		public List <Perfil> todosPerfiles (){
+			return perfilService.buscarPerfiles();
+			
+	 
+	 }
+	 
+	 ////Mostar usuarios con los datos del dto UsuarioDatosDto
+	 
+	 @GetMapping("/datosPropios/{idUsuario}")
+	    public UsuarioDatosDto getDatosPropiosUsuario(@PathVariable String idUsuario) {
+	      
+	        Usuario usuario = usuarioService.obtenerUsuarioPorId(idUsuario);
+
+	        return new UsuarioDatosDto(
+	            usuario.getNombre(),
+	            usuario.getApellidos(),
+	            usuario.getDireccion(),
+	            usuario.getTelefono()
+	        );
 }
+}		
+	
