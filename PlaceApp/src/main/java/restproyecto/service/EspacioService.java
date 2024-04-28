@@ -16,4 +16,6 @@ public interface EspacioService {
 	Espacio buscarPorId(int idEspacio);
 	
 	List<Espacio> obtenerEspaciosDeUsuario(String username);
+	
+	List <Espacio>buscarEspaciosSubtipoProvincia(int idSubtipo,int idProv);
 }

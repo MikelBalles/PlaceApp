@@ -26,6 +26,15 @@ public class UsuarioServiceImplMy8Jpa implements UsuarioService {
 		return urepo.usuarioPorUsernameAndPassword(username, password);
 	}
 
-	
+	 @Override
+	    public boolean actualizarUsuario(Usuario usuario) {
+	        try {
+	            urepo.save(usuario); // Guardar los cambios en la base de datos
+	            return true; // La actualización fue exitosa
+	        } catch (Exception e) {
+	            // Manejar cualquier excepción y registrar errores si es necesario
+	            return false; // La actualización falló
+	        }
+	    }
 
 }

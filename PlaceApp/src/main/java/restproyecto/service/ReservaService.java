@@ -11,6 +11,7 @@ public interface ReservaService {
 	
 	List<ReservaEspacioDto> obtenerReservaPorEspacio(int idEspacio);
 	Reserva buscarPorId(int idReserva);
-    List<Reserva>obtenerReservaUsuario(int idReserva);
 
+	List<Reserva> obtenerReservaPorUsuario(String username);
+	
 }

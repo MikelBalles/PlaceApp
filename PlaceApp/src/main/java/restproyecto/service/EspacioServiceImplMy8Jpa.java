@@ -61,6 +61,12 @@ public class EspacioServiceImplMy8Jpa implements EspacioService{
 		// TODO Auto-generated method stub
 		return erepo.findById(idEspacio).orElse(null);
 	}
+
+	@Override
+	public List<Espacio> buscarEspaciosSubtipoProvincia(int idSubtipo, int idProv) {
+		// TODO Auto-generated method stub
+		return erepo.buscarEspacios(idSubtipo, idProv);
+	}
 }
 
 

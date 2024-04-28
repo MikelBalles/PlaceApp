@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import restproyecto.modelo.dto.SubtipoEspacioDto;
+
 import restproyecto.modelo.entities.Subtipo;
 import restproyecto.modelo.repository.SubtipoRepository;
 
@@ -29,5 +30,6 @@ public class SubtipoServiceImplMy8Jpa implements SubtipoService {
 	public Subtipo buscarPorId(int idSubtipo) {
 		return srepo.findById(idSubtipo).orElse(null);
 	}
+
 
 }

@@ -26,10 +26,12 @@ public class ReservaServiceImplMy8Jpa implements ReservaService {
 		return rrepo.findById(idReserva).orElse(null);
 	}
 	@Override
-	public List<Reserva> obtenerReservaUsuario(int idReserva) {
+	public List<Reserva> obtenerReservaPorUsuario(String username) {
 		// TODO Auto-generated method stub
-		return rrepo.buscarReservaUsuarioReserva(idReserva);
+		return rrepo.FindReservaByUsuario(username);
 	}
+
+	
 
 
 	

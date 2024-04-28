@@ -9,10 +9,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-public class UsuarioDatosDto {
-
-	private String nombre;
-	private String apellidos;
-	private String direccion;
-	private int telefono;	
+public class EspacioClienteDto {
+	 private int idEspacio;
+	    private String nombre;
+	    private String descripcion;
+	    private String direccion;
+	    private double precio;
 }

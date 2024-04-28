@@ -1,5 +1,6 @@
 package restproyecto.modelo.dto;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,10 +10,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Builder
-public class UsuarioDatosDto {
+public class ActualizarUsuarioDto {
 
-	private String nombre;
-	private String apellidos;
-	private String direccion;
-	private int telefono;	
-}
+
+
+		private String nombre;
+		private String apellidos;
+		private String direccion;
+		private int telefono;
+		private String password;
+		
+	}
+
+
+

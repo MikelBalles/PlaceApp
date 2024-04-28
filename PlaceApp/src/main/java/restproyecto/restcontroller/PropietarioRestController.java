@@ -3,6 +3,7 @@ package restproyecto.restcontroller;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,10 +11,12 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import restproyecto.modelo.dto.ActualizarUsuarioDto;
 import restproyecto.modelo.dto.AltaEspacioDto;
 import restproyecto.modelo.dto.AltaExtraDto;
 import restproyecto.modelo.dto.EspacioDto;
@@ -39,7 +42,7 @@ import restproyecto.service.ReservaService;
 import restproyecto.service.SubtipoService;
 import restproyecto.service.UsuarioService;
 
-import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @RestController
@@ -199,19 +202,17 @@ public class PropietarioRestController {
 /////Detalles de una reserva, muestra el nombre y detalles del espacio, nombre y detalle del usuario que ha realizado la reserva.
 
 	@GetMapping("espacio/reserva/usuario/{idReserva}")
-	public List<ReservaUsuarioDto> ObtenerReservaUsuario(@PathVariable int idReserva) {
-		List<Reserva> listaReservas = new ArrayList<>();
-		listaReservas = reservaService.obtenerReservaUsuario(idReserva);
-		List<ReservaUsuarioDto> reservaDto = new ArrayList<>();
-		for (Reserva r:listaReservas) {
-			ReservaUsuarioDto rDto = new ReservaUsuarioDto();
+	public ReservaUsuarioDto obtenerReservaUsuario(@PathVariable int idReserva) {
+		Reserva r = reservaService.buscarPorId(idReserva);
+		ReservaUsuarioDto rDto = new ReservaUsuarioDto();
+			
 			rDto.setIdReserva(r.getIdReserva());
 			rDto.setNombreEspacio(r.getEspacio().getNombre());
 			rDto.setDescripcionEspacio(r.getEspacio().getDescripcion());
 			rDto.setDireccionEspacio(r.getEspacio().getDireccion());
-			rDto.setNombreUsuario(r.getUsuario().getNombre());
-			rDto.setTelefonoUsuario(r.getUsuario().getTelefono());
-			rDto.setDireccionUsuario(r.getUsuario().getDireccion());
+			rDto.setNombreUsuario(r.getEspacio().getUsuario().getNombre());
+			rDto.setTelefonoUsuario(r.getEspacio().getUsuario().getTelefono());
+			rDto.setDireccionUsuario(r.getEspacio().getUsuario().getDireccion());
 			rDto.setFechaInicioReserva(r.getFechaInicio());
 			rDto.setFechaFinReserva(r.getFechaFin());
 			rDto.setPrecioVenta(r.getPrecioVenta());
@@ -220,15 +221,16 @@ public class PropietarioRestController {
 			rDto.setTlfUsernameResrva(r.getUsuario().getTelefono());
 			rDto.setDireccionUsernameReserva(r.getUsuario().getDireccion());
 			
-			reservaDto.add(rDto);
-			
-		}
-		return reservaDto;
 		
+			
+	
+		return rDto;
+		
+	}
 			
 		
 
-	}
+	
 	
 	////Validacion de usuario con username+password,una vez el usuario autenticado mostrar los detalles del usuario
 	 @PostMapping("/iniciarSesion")
@@ -243,7 +245,7 @@ public class PropietarioRestController {
 	            usuarioPerfilDto.setNombrePerfil(usuarioAutenticado.getPerfil().getNombre());
 	            return ResponseEntity.ok(usuarioPerfilDto);
 	        } else {
-	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Credenciales inválidas");
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Credenciales inválidas");
 	        }
 	    }
 	
@@ -267,7 +269,49 @@ public class PropietarioRestController {
 	            usuario.getApellidos(),
 	            usuario.getDireccion(),
 	            usuario.getTelefono()
+
 	        );
 }
-}		
+	// Modificar los datos del usuario 
+	 @PutMapping("/actualizarUsuario")
+	 public ResponseEntity<?> actualizarUsuario(@RequestBody ActualizarUsuarioDto actualizarUsuarioDto) {
+	   
+	     System.out.println(actualizarUsuarioDto);
+
+	     // Crear un objeto Usuario con los datos proporcionados por el DTO
+	     Usuario usuario = new Usuario();
+	     usuario.setNombre(actualizarUsuarioDto.getNombre());
+	     usuario.setApellidos(actualizarUsuarioDto.getApellidos());
+	     usuario.setDireccion(actualizarUsuarioDto.getDireccion());
+	     usuario.setTelefono(actualizarUsuarioDto.getTelefono());
+
+	     // Verificar si se proporcionó una nueva contraseña
+	     if (actualizarUsuarioDto.getPassword() != null && !actualizarUsuarioDto.getPassword().isEmpty()) {
+	         usuario.setPassword(actualizarUsuarioDto.getPassword());
+	     }
+	     System.out.println("Usuario a actualizar: " + usuario);
+
+	     // Actualizar el usuario en la base de datos
+	     boolean actualizacionExitosa = usuarioService.actualizarUsuario(usuario);
+
+	     if (actualizacionExitosa) {
+	         // Crear un nuevo DTO con los datos actualizados para devolver en la respuesta
+	         UsuarioDatosDto usuarioActualizadoDto = new UsuarioDatosDto();
+	         usuarioActualizadoDto.setNombre(usuario.getNombre());
+	         usuarioActualizadoDto.setApellidos(usuario.getApellidos());
+	         usuarioActualizadoDto.setDireccion(usuario.getDireccion());
+	         usuarioActualizadoDto.setTelefono(usuario.getTelefono());
+
+	         return ResponseEntity.ok(usuarioActualizadoDto);
+	     } else {
+	         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al actualizar el usuario");
+	     }
+	 }
+
+	 }
+
+
+	 
+	 
+
 	

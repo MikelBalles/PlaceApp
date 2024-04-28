@@ -17,7 +17,6 @@ public class ReservaUsuarioDto {
 	private String nombreEspacio;
 	private String descripcionEspacio;
 	private String direccionEspacio;
-	private String UsernameEspacio;
 	private String nombreUsuario;
 	private int telefonoUsuario;
 	private String direccionUsuario;
@@ -25,7 +24,6 @@ public class ReservaUsuarioDto {
 	private Date fechaFinReserva;
 	private double precioVenta;
 	private String observacionReserva;
-	private String UsernameReserva;
 	private String nombreUsurnameReserva;
 	private int tlfUsernameResrva;
 	private String direccionUsernameReserva;

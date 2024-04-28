@@ -3,6 +3,7 @@ import java.util.List;
 
 import restproyecto.modelo.dto.ReservaEspacioDto;
 import restproyecto.modelo.dto.SubtipoEspacioDto;
+
 import restproyecto.modelo.entities.Subtipo;
 public interface SubtipoService {
 	
@@ -13,4 +14,6 @@ public interface SubtipoService {
 	List<SubtipoEspacioDto> obtenerSubtipoPorEspacio(int idEspacio);
 	
 	Subtipo buscarPorId(int idSubtipo);
+	
+
 }
