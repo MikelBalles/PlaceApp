@@ -279,7 +279,8 @@ public class PropietarioRestController {
 	     System.out.println(actualizarUsuarioDto);
 
 	     // Crear un objeto Usuario con los datos proporcionados por el DTO
-	     Usuario usuario = new Usuario();
+	     Usuario usuario = usuarioService.obtenerUsuarioPorId(actualizarUsuarioDto.getUsername());
+	    
 	     usuario.setNombre(actualizarUsuarioDto.getNombre());
 	     usuario.setApellidos(actualizarUsuarioDto.getApellidos());
 	     usuario.setDireccion(actualizarUsuarioDto.getDireccion());

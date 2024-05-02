@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 
 @AllArgsConstructor
@@ -28,12 +29,12 @@ public class Reserva implements Serializable {
 	private int idReserva;
 	
 	@Column(name="FECHA_INICIO")
-	@Temporal(TemporalType.DATE)
-    private Date fechaInicio;
+	@Temporal(TemporalType.TIMESTAMP)
+    private Timestamp fechaInicio;
 	
 	@Column(name="FECHA_FIN")
-	@Temporal(TemporalType.DATE)
-    private Date fechaFin;
+	@Temporal(TemporalType.TIMESTAMP)
+    private Timestamp fechaFin;
 	
 	private int enabled;
 

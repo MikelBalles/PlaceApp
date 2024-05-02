@@ -298,7 +298,10 @@ CREATE TABLE `reservas` (
 
 LOCK TABLES `reservas` WRITE;
 /*!40000 ALTER TABLE `reservas` DISABLE KEYS */;
-INSERT INTO `reservas` VALUES (1,1,'usuario1@example.com',25.00,'2023-04-01 10:00:00','2023-04-02 10:00:00',1,'Reunión de trabajo'),(2,2,'usuario2@example.com',60.00,'2023-04-03 10:00:00','2023-04-04 10:00:00',1,'Cena de negocios'),(3,3,'usuario3@example.com',40.00,'2023-04-05 10:00:00','2023-04-06 10:00:00',1,'Entrenamiento personal');
+INSERT INTO `reservas` VALUES (1,1,'usuario1@example.com',25.00,'2023-04-01 10:00:00','2023-04-02 10:00:00',1,'Reunión de trabajo'),
+(2,2,'usuario2@example.com',60.00,'2023-04-03 10:00:00','2023-04-04 10:00:00',1,'Cena de negocios'),
+(3,3,'usuario3@example.com',40.00,'2023-04-05 10:00:00','2023-04-06 10:00:00',1,'Entrenamiento personal'),
+(4,3,'usuario3@example.com',50.00,'2025-04-05 10:00:00','2025-04-05 12:00:00',1,'vacio');
 /*!40000 ALTER TABLE `reservas` ENABLE KEYS */;
 UNLOCK TABLES;
 

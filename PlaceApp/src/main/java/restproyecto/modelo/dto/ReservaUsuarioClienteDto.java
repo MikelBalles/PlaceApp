@@ -1,6 +1,11 @@
 package restproyecto.modelo.dto;
 
-import java.sql.Date;
+
+
+import java.sql.Timestamp;
+
+
+
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,8 +21,8 @@ public class ReservaUsuarioClienteDto {
 	private int idReserva;
 	private String nombreEspacio;
 	private String observacionesReserva;
-	private Date fechaInicio;
-	private Date fechaFin;
+	private Timestamp fechaInicio;
+	private Timestamp fechaFin;
 	private double precioVenta;
 	
 	

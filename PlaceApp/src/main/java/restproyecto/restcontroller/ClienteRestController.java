@@ -1,5 +1,8 @@
 package restproyecto.restcontroller;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,16 +66,26 @@ public class ClienteRestController {
 		public List<ReservaUsuarioClienteDto> buscarReservaPorUsuario(@PathVariable String username){
 			List<Reserva> reservas = reservaService.obtenerReservaPorUsuario(username);
 			List<ReservaUsuarioClienteDto> reservasDto = new ArrayList<>();
+			List<Reserva> reservasEnFecha = new ArrayList<>();
+			LocalDateTime fechaActual = LocalDateTime.now();
 			
 			for (Reserva r :reservas) {
-			ReservaUsuarioClienteDto ruDto = new ReservaUsuarioClienteDto();
-			ruDto.setIdReserva(r.getIdReserva());
-			ruDto.setNombreEspacio(r.getEspacio().getNombre());
-			ruDto.setObservacionesReserva(r.getObservaciones());
-			ruDto.setFechaInicio(r.getFechaInicio());
-			ruDto.setFechaFin(r.getFechaFin());
-			ruDto.setPrecioVenta(r.getPrecioVenta());
-			reservasDto.add(ruDto);
+				
+				LocalDateTime fechaFintmp = r.getFechaFin().toLocalDateTime(); 
+				
+				if (fechaFintmp.isBefore(fechaActual)) {
+						continue;
+				}
+				
+				
+				ReservaUsuarioClienteDto ruDto = new ReservaUsuarioClienteDto();
+				ruDto.setIdReserva(r.getIdReserva());
+				ruDto.setNombreEspacio(r.getEspacio().getNombre());
+				ruDto.setObservacionesReserva(r.getObservaciones());
+				ruDto.setFechaInicio(r.getFechaInicio());
+				ruDto.setFechaFin(r.getFechaFin());
+				ruDto.setPrecioVenta(r.getPrecioVenta());
+				reservasDto.add(ruDto);
 			}
 			
 			return reservasDto;

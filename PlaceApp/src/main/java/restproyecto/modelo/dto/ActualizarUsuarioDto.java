@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class ActualizarUsuarioDto {
 
 
-
+		private String username;
 		private String nombre;
 		private String apellidos;
 		private String direccion;

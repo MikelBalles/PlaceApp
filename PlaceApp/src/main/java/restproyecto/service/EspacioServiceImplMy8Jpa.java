@@ -47,8 +47,6 @@ public class EspacioServiceImplMy8Jpa implements EspacioService{
 		}
   }
 
-	
-	
 
 	@Override
 	public List<Espacio> obtenerEspaciosDeUsuario(String username) {
