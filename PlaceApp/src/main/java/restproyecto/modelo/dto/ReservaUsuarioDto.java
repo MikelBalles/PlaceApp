@@ -14,7 +14,9 @@ import lombok.NoArgsConstructor;
 @Builder
 
 public class ReservaUsuarioDto {
+	private int idEspacio;
 	private int idReserva;
+	private String usernameReserva;
 	private String nombreEspacio;
 	private String descripcionEspacio;
 	private String direccionEspacio;
@@ -28,6 +30,8 @@ public class ReservaUsuarioDto {
 	private String nombreUsurnameReserva;
 	private int tlfUsernameResrva;
 	private String direccionUsernameReserva;
+	
+	
 	
 	
 	

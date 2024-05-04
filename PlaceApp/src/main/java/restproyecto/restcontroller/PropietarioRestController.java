@@ -43,59 +43,118 @@ import restproyecto.service.SubtipoService;
 import restproyecto.service.UsuarioService;
 
 
-
+/**
+ * Controlador REST para las operaciones relacionadas con las reservas y gestión de espacios por parte de los propietarios.
+ */
 
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/rest/reserva")
 
 public class PropietarioRestController {
+	 /**
+     * Servicio para gestionar la información de las reservas.
+     */
 	@Autowired
 	private ReservaService reservaService;
+	
+	/**
+     * Servicio para gestionar la información de los usuarios.
+     */
 	@Autowired
 	private UsuarioService usuarioService;
+	
+	/**
+     * Servicio para gestionar la información de las provincias.
+     */
 	@Autowired
 	private ProvinciaService provinciaService;
+	
+	/**
+     * Servicio para gestionar la información de los subtipos de espacios.
+     */
 	@Autowired
 	private SubtipoService subtipoService;
+	
+	/**
+     * Servicio para gestionar la información de los espacios.
+     */
 	@Autowired
 	private EspacioService espacioService;
+	
+	/**
+     * Servicio para gestionar la información de los extras asociados a un espacio.
+     */
 	@Autowired
 	private ExtraService extraService;
+	
+	/**
+     * Servicio para gestionar la información de los perfiles de usuario.
+     */
 	@Autowired
 	private PerfilService perfilService;
 	
-	/////Mostrar toda las provincias
+	
+	
+	/**
+     * Consulta a la base de datos que obtiene todas las provincias disponibles.
+     *
+     * @return Lista de todas las provincias.
+     */
 	@GetMapping("/provincias")
 	public List <Provincia> todasProvincias (){
 		return provinciaService.buscarProvincias();
 	}
 	
-	/////Mostrar todo los subtipos 
+	/**
+     * Consulta a la base de datos que obtiene todos los subtipos disponibles.
+     *
+     * @return Lista de todos los subtipos.
+     */
 	@GetMapping("/subtipo")
 	public List <Subtipo> todosSubtipo (){
 		return subtipoService.buscarSubtipo();
 	}
 	
-	///Mostras Subtipo asociado a un espacio pasandole el id del espacio
+	/**
+     * Consulta a la base de datos que obtiene los subtipos asociados a un espacio.
+     *
+     * @param idEspacio Identificador del espacio.
+     * @return Lista de subtipos asociados al espacio.
+     */
 	@GetMapping("/subtipo/espacio/{idEspacio}")
 	public List<SubtipoEspacioDto> obtenerSubtipoPorEspacio(@PathVariable int idEspacio) {
         return subtipoService.obtenerSubtipoPorEspacio(idEspacio);
 	
 	}
-	//////Mostar las reservas asociadas a un espacio pasandole el id del espacio 
+	 /**
+     * Consulta a la base de datos que obtiene las reservas asociadas a un espacio.
+     *
+     * @param idEspacio Identificador del espacio.
+     * @return Lista de reservas asociadas al espacio.
+     */
 	@GetMapping("reservas/espacio/{idEspacio}")
 	public List<ReservaEspacioDto> obtenerReservasPorEspacio(@PathVariable int idEspacio) {
         return reservaService.obtenerReservaPorEspacio(idEspacio);
 
 }
-	//// Mostrar todo los espacios 
+	
+	 /**
+     * Consutla a la base de datos que obtiene todos los espacios disponibles.
+     *
+     * @return Lista de todos los espacios.
+     */
 	@GetMapping("/espacio")
 	public List <Espacio> todosEspacios (){
 		return espacioService.buscarTodosEspacios();
 	}
-	////Dar de alta un espacio
-		
+
+	/**
+     * Peticion a la base de datos que crea un nuevo espacio.
+     *
+     * @param bodyDto DTO con la información del espacio a crear.
+     * @return El nuevo espacio creado en la base de datos.
+     */
 	@PostMapping("/espacio/alta")
 	public Espacio crearEspacio(@RequestBody AltaEspacioDto bodyDto) {
 		
@@ -141,9 +200,14 @@ public class PropietarioRestController {
 				
         return espacioAlta;
     }
-	//// Mostrar todo los espacios de un usuario  con el nombre del tipo del espacio 
-		
 	
+	
+	/**
+     * Consutla en la base de datos que obtiene los espacios asociados a un usuario.
+     *
+     * @param username identificativo de un usuario (id usuario).
+     * @return Lista de espacios asociados al usuario.
+     */
 	@GetMapping("espacio/usuario/{username}")
 	public List<EspacioUsuarioDto> otenerEspacioDeUsuario(@PathVariable String username){
 		List<Espacio> listaEspacios = new ArrayList<>();
@@ -161,7 +225,14 @@ public class PropietarioRestController {
 		}
 		return listaDto;
 	}
-		
+	
+	
+	/**
+     * Consulta a la base de datos que obtiene los detalles indicados en el Dto de un espacio.
+     *
+     * @param idEspacio Identificador del espacio.
+     * @return Detalles del espacio, exclusivamente los detalles del Dto.
+     */
 	@GetMapping("espacio/{idEspacio}")
 	public EspacioDto obtenerDetalleEspacio (@PathVariable int idEspacio) {
 		//Creamos el objeto que vamos a devolver
@@ -199,7 +270,12 @@ public class PropietarioRestController {
 		
 		return eDto;
 	}
-/////Detalles de una reserva, muestra el nombre y detalles del espacio, nombre y detalle del usuario que ha realizado la reserva.
+	  /**
+     * Consutla el la base de datos que obtiene los detalles de una reserva asociada a un espacio.
+     *
+     * @param idReserva Identificador de la reserva.
+     * @return Detalles de la reserva.
+     */
 
 	@GetMapping("espacio/reserva/usuario/{idReserva}")
 	public ReservaUsuarioDto obtenerReservaUsuario(@PathVariable int idReserva) {
@@ -232,7 +308,12 @@ public class PropietarioRestController {
 
 	
 	
-	////Validacion de usuario con username+password,una vez el usuario autenticado mostrar los detalles del usuario
+	/**
+     * Peticion que inicia la sesión de usuario y devuelve los detalles del perfil.
+     *
+     * @param usuario Objeto Usuario con credenciales de inicio de sesión.
+     * @return Detalles del perfil del usuario autenticado.
+     */
 	 @PostMapping("/iniciarSesion")
 	    public ResponseEntity<?> iniciarSesion(@RequestBody Usuario usuario) {
 	        Usuario usuarioAutenticado = usuarioService.login(usuario.getUsername(), usuario.getPassword());
@@ -249,7 +330,11 @@ public class PropietarioRestController {
 	        }
 	    }
 	
-/////mostrar todo los perfiles disponibles
+	    /**
+	     * Consulta a la base de datos que obtiene todos los perfiles disponibles.
+	     *
+	     * @return Lista de todos los perfiles.
+	     */
 	 @GetMapping("/perfiles")
 		public List <Perfil> todosPerfiles (){
 			return perfilService.buscarPerfiles();
@@ -257,7 +342,12 @@ public class PropietarioRestController {
 	 
 	 }
 	 
-	 ////Mostar usuarios con los datos del dto UsuarioDatosDto
+	 /**
+	     *Consutla a la base de datos que obtiene los datos personales de un usuario.
+	     *
+	     * @param idUsuario Identificador de usuario.
+	     * @return Datos personales del usuario.
+	     */
 	 
 	 @GetMapping("/datosPropios/{idUsuario}")
 	    public UsuarioDatosDto getDatosPropiosUsuario(@PathVariable String idUsuario) {
@@ -272,7 +362,16 @@ public class PropietarioRestController {
 
 	        );
 }
-	// Modificar los datos del usuario 
+	 	/**
+	     * Modificacion a la base de datos que actualiza los datos de un usuario.
+	     *
+	     * @param actualizarUsuarioDto DTO con los nuevos datos del usuario.
+	     * @return Respuesta de la actualización. En caso de una actualización exitosa, 
+	     * devuelve un mensaje indicando que la actualización se realizó correctamente. 
+	     * 
+	     * @return En caso de error, devuelve un mensaje indicando que hubo un problema durante la actualización.
+	     */
+	     
 	 @PutMapping("/actualizarUsuario")
 	 public ResponseEntity<?> actualizarUsuario(@RequestBody ActualizarUsuarioDto actualizarUsuarioDto) {
 	   

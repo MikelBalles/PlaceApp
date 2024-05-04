@@ -15,4 +15,6 @@ public class ExtraDto {
 	 private int idExtra;
 	 private String nombre;
 	 private double precio;
+	 private String descripcion;
+	 
 }

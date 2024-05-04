@@ -30,6 +30,20 @@ public class ReservaServiceImplMy8Jpa implements ReservaService {
 		// TODO Auto-generated method stub
 		return rrepo.FindReservaByUsuario(username);
 	}
+	@Override
+	public Reserva altaReserva(Reserva reserva) {
+		try {
+			return rrepo.save(reserva);			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	@Override
+	public List<Reserva> buscarTodas() {
+		// TODO Auto-generated method stub
+		return rrepo.findAll();
+	}
 
 	
 

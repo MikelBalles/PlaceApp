@@ -13,5 +13,8 @@ public interface ReservaService {
 	Reserva buscarPorId(int idReserva);
 
 	List<Reserva> obtenerReservaPorUsuario(String username);
+	Reserva altaReserva(Reserva reserva);
+	
+	List<Reserva> buscarTodas();
 	
 }

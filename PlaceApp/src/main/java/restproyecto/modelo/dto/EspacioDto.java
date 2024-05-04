@@ -14,11 +14,17 @@ import lombok.NoArgsConstructor;
 @Builder
 public class EspacioDto {
 
+	private int idEspacio;
     private String nombreEspacio;
     private String descripcion;
     private int cp;
     private String provincia;
     private String subtipo;
     private double precio;
+    private String username;
+    private String nombreUsername;
+    private int telefonoUsername;
+    private String correoUsername;
+    
     private List<ExtraDto> extras;
 }
