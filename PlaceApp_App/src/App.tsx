@@ -1,29 +1,63 @@
 
 import './App.scss'
-import logo_PlaceApp from './assets/logo_PlaceApp.svg'
+import { useEffect, useState } from 'react';
 
+import Navbar from './components/NavBar';
 function App() {
+  const [espacioDto, setEspacioDto] = useState<{
+    idEspacio: number,
+    nombreEspacio: string,
+    descripcion: string,
+    cp: number,
+    provincia: string,
+    subtipo: number,
+    precio: number,
+    nombreUsername: string,
+    telefonoUsername: number,
+    correoUsername: string,
+    extras: [
+        {
+            idExtra: number,
+            nombre: string,
+            precio: number,
+            descripcion: string
+        }
+    ]
+
+   }>
+   ({idEspacio: 0,
+    nombreEspacio: '',
+    descripcion: '',
+    cp: 0,
+    provincia: '',
+    subtipo: 0,
+    precio: 0,
+    nombreUsername: '',
+    telefonoUsername: 0,
+    correoUsername: '',
+    extras: [
+        {
+            idExtra: 0,
+            nombre: '',
+            precio: 0,
+            descripcion: '',
+        }
+    ]});
+
+  useEffect(() => {
+    fetch('http://localhost:8088/rest/cliente/espacio/cliente/1')
+      .then(response => response.json())
+      .then(data => setEspacioDto(data))
+      .catch(error => console.log(error));
+  }, []); 
 
   return (
     <>
-      <nav className='navbar'>
-      <div className='logo-navbar'>
-          <a href='#'>
-            <img src={logo_PlaceApp} alt='logo' />
-          </a>
-        </div>
-        <div className="links-acceso">
-          <a className="btn-primary btn-sin-relleno" href="#">Cómo funciona</a>
-          <a className='btn-primary btn-sin-relleno' href="#">Preguntas frecuentes</a>          
-        </div>
-
-        <div className='links-cuenta'>
-          <a className="btn-primary btn-borde" href='#'>Iniciar sesión</a>
-          <a className="btn-primary btn-relleno" href='#'>Registrarse</a>
-        </div>
-      </nav>
+      <Navbar sesionIniciada={true} nombreEspacio={espacioDto.nombreEspacio} />
     </>
-  )
+  );
 }
 
-export default App
+
+
+export default App;

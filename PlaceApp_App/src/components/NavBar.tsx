@@ -1,19 +1,35 @@
 import React from 'react';
+import logo_PlaceApp from '../assets/logo_PlaceApp.svg';
 
-const Navbar = () => {
-  return (
-    <nav className="navbar">
-      <h1>Place App</h1>
-      <div className="links">
-        <a href="/">Home</a>
-        <a href="/create" style={{
-          color: 'white',
-          backgroundColor: '#f1356d',
-          borderRadius: '8px'
-        }}>New Place</a>
-      </div>
-    </nav>
-  );
+interface NavbarProps {
+    sesionIniciada: boolean;
+    nombreEspacio?: string;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ sesionIniciada = false, nombreEspacio = 'Nombre del Espacio' }) => {
+    return (
+        <nav className='navbar'>
+            <div className='logo-navbar'>
+                <a href='#'>
+                    <img src={logo_PlaceApp} alt='logo' />
+                </a>
+            </div>
+            <div className="links-acceso">
+                <p>{nombreEspacio}</p>
+                <a className="btn-primary btn-sin-relleno" href="#">Cómo funciona</a>
+                <a className='btn-primary btn-sin-relleno' href="#">Preguntas frecuentes</a>
+            </div>
+
+            {sesionIniciada ? (
+                <div style={{ width: '100px', height: '100px', background: 'red' }}></div>
+            ) : (
+                <div className='links-cuenta'>
+                    <a className="btn-primary btn-borde" href='#'>Iniciar sesión</a>
+                    <a className="btn-primary btn-relleno" href='#'>Registrarse</a>
+                </div>
+            )}
+        </nav>
+    );
 };
 
 export default Navbar;
