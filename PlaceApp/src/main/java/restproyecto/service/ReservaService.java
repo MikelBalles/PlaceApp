@@ -17,4 +17,6 @@ public interface ReservaService {
 	
 	List<Reserva> buscarTodas();
 	
+	Boolean modificarReserva(Reserva reserva);
+	
 }

@@ -49,7 +49,7 @@ import restproyecto.service.UsuarioService;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/rest/reserva")
+@RequestMapping("/rest/propietario")
 
 public class PropietarioRestController {
 	 /**
@@ -133,7 +133,7 @@ public class PropietarioRestController {
      * @param idEspacio Identificador del espacio.
      * @return Lista de reservas asociadas al espacio.
      */
-	@GetMapping("reservas/espacio/{idEspacio}")
+	@GetMapping("/reservas/espacio/{idEspacio}")
 	public List<ReservaEspacioDto> obtenerReservasPorEspacio(@PathVariable int idEspacio) {
         return reservaService.obtenerReservaPorEspacio(idEspacio);
 
@@ -208,7 +208,7 @@ public class PropietarioRestController {
      * @param username identificativo de un usuario (id usuario).
      * @return Lista de espacios asociados al usuario.
      */
-	@GetMapping("espacio/usuario/{username}")
+	@GetMapping("/espacio/usuario/{username}")
 	public List<EspacioUsuarioDto> otenerEspacioDeUsuario(@PathVariable String username){
 		List<Espacio> listaEspacios = new ArrayList<>();
 		listaEspacios = espacioService.obtenerEspaciosDeUsuario(username);
@@ -233,7 +233,7 @@ public class PropietarioRestController {
      * @param idEspacio Identificador del espacio.
      * @return Detalles del espacio, exclusivamente los detalles del Dto.
      */
-	@GetMapping("espacio/{idEspacio}")
+	@GetMapping("/espacio/{idEspacio}")
 	public EspacioDto obtenerDetalleEspacio (@PathVariable int idEspacio) {
 		//Creamos el objeto que vamos a devolver
 		EspacioDto eDto = new EspacioDto();
@@ -277,7 +277,7 @@ public class PropietarioRestController {
      * @return Detalles de la reserva.
      */
 
-	@GetMapping("espacio/reserva/usuario/{idReserva}")
+	@GetMapping("/reserva/usuario/{idReserva}")
 	public ReservaUsuarioDto obtenerReservaUsuario(@PathVariable int idReserva) {
 		Reserva r = reservaService.buscarPorId(idReserva);
 		ReservaUsuarioDto rDto = new ReservaUsuarioDto();
@@ -297,14 +297,29 @@ public class PropietarioRestController {
 			rDto.setTlfUsernameResrva(r.getUsuario().getTelefono());
 			rDto.setDireccionUsernameReserva(r.getUsuario().getDireccion());
 			
-		
-			
-	
 		return rDto;
-		
 	}
-			
 		
+	/**
+	 * Recupera la reserva que se corresponde con el ID que llega, y establece
+	 * el campo ENABLED a 0. 
+	 * 
+	 * @param id El id de la reserva
+	 * @return Devuelve un status y mensaje personalizado para cada caso.
+	 */
+	@PutMapping("/reserva/cancelarReserva/{id}")
+	public ResponseEntity<?> cancelarReserva(@PathVariable int id) {
+		Reserva reserva = reservaService.buscarPorId(id);
+		if (reserva != null) {
+			reserva.setEnabled(0);
+			if (reservaService.modificarReserva(reserva)) {
+				return ResponseEntity.status(HttpStatus.OK).body("Reserva cancelada");
+			}
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Reserva NO cancelada");
+		}
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El ID reserva NO existe");
+
+	}
 
 	
 	
@@ -375,8 +390,6 @@ public class PropietarioRestController {
 	 @PutMapping("/actualizarUsuario")
 	 public ResponseEntity<?> actualizarUsuario(@RequestBody ActualizarUsuarioDto actualizarUsuarioDto) {
 	   
-	     System.out.println(actualizarUsuarioDto);
-
 	     // Crear un objeto Usuario con los datos proporcionados por el DTO
 	     Usuario usuario = usuarioService.obtenerUsuarioPorId(actualizarUsuarioDto.getUsername());
 	    
@@ -389,7 +402,6 @@ public class PropietarioRestController {
 	     if (actualizarUsuarioDto.getPassword() != null && !actualizarUsuarioDto.getPassword().isEmpty()) {
 	         usuario.setPassword(actualizarUsuarioDto.getPassword());
 	     }
-	     System.out.println("Usuario a actualizar: " + usuario);
 
 	     // Actualizar el usuario en la base de datos
 	     boolean actualizacionExitosa = usuarioService.actualizarUsuario(usuario);

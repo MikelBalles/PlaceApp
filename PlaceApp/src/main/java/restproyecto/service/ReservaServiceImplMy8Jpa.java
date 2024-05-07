@@ -22,12 +22,10 @@ public class ReservaServiceImplMy8Jpa implements ReservaService {
 	}
 	@Override
 	public Reserva buscarPorId(int idReserva) {
-		// TODO Auto-generated method stub
 		return rrepo.findById(idReserva).orElse(null);
 	}
 	@Override
 	public List<Reserva> obtenerReservaPorUsuario(String username) {
-		// TODO Auto-generated method stub
 		return rrepo.FindReservaByUsuario(username);
 	}
 	@Override
@@ -43,6 +41,14 @@ public class ReservaServiceImplMy8Jpa implements ReservaService {
 	public List<Reserva> buscarTodas() {
 		// TODO Auto-generated method stub
 		return rrepo.findAll();
+	}
+	@Override
+	public Boolean modificarReserva(Reserva reserva) {
+		if (buscarPorId(reserva.getIdReserva()) != null) {
+			rrepo.save(reserva);
+			return true;
+		}else 
+		return false;
 	}
 
 	
