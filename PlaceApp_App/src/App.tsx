@@ -1,8 +1,9 @@
 
 import './App.scss'
 import { useEffect, useState } from 'react';
-
+import VistaClientePpal from './components/VistaClientePpal';
 import Navbar from './components/NavBar';
+import Footer from './components/footer';
 function App() {
   const [espacioDto, setEspacioDto] = useState<{
     idEspacio: number,
@@ -54,10 +55,10 @@ function App() {
   return (
     <>
       <Navbar sesionIniciada={true} nombreEspacio={espacioDto.nombreEspacio} />
+      <VistaClientePpal></VistaClientePpal>
+      <Footer/>
     </>
   );
 }
-
-
 
 export default App;
