@@ -170,8 +170,6 @@ input {
   gap: 4.8rem;
   align-self: stretch;
 
-
-
   .links-acceso,
   .links-cuenta {
     display: flex;
@@ -182,6 +180,14 @@ input {
   .logo-navbar {
     flex-shrink: 0;
   }
+
+  .acceso-area-privada {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+
 }
 
 

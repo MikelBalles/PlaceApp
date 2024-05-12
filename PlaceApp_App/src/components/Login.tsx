@@ -2,18 +2,17 @@ import React, { useEffect, useState } from 'react';
 import Input from './Input';
 import infografiaLogin from '../assets/images/infografia-login.svg';
 import { URL_PETICION_BBDD } from '../datos/constantes';
+import { modeloInputs, sesionIniciada } from '../datos/tipos';
 
-interface modeloInputs {
-  name: string;
-  value: string;
-  esValido: boolean;
+interface LoginProps {
+  iniciarSesion: (data: sesionIniciada) => void;
 }
 
 const inputsIniciales : modeloInputs[] = [
   { name: 'username', value: '', esValido: false },
   { name: 'password', value: '', esValido: false },
 ];
-const Login: React.FC = () => {
+const Login: React.FC<LoginProps> = ( {iniciarSesion} ) => {
 
   const [inputValidos, setInputValidos] = useState(false);
   const [estadoInputs, setEstadoInputs] = useState<modeloInputs[]>(inputsIniciales);
@@ -52,9 +51,9 @@ const Login: React.FC = () => {
     }).then(function (response) {
       if (response.ok) {
         setMsgLogin('');
-        response.json().then(function(data) {
-            alert('Inicio de sesión correcto ' + JSON.stringify(data));
-        });
+        response.json().then(function(data:sesionIniciada) {
+        iniciarSesion(data);
+    });
       } else {
         response.text().then(function(text) {
           setMsgLogin(text);
