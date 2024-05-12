@@ -3,6 +3,7 @@ import './App.scss'
 import { useEffect, useState } from 'react';
 
 import Navbar from './components/NavBar';
+import Login from './components/Login';
 function App() {
   const [espacioDto, setEspacioDto] = useState<{
     idEspacio: number,
@@ -53,7 +54,11 @@ function App() {
 
   return (
     <>
-      <Navbar sesionIniciada={true} nombreEspacio={espacioDto.nombreEspacio} />
+      <Navbar sesionIniciada={false} nombreEspacio={espacioDto.nombreEspacio} />
+      <div className='contenedor-general'>
+      <Login />
+
+      </div>
     </>
   );
 }

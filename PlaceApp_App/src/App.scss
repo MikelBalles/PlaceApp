@@ -16,11 +16,149 @@
   --color-info-error: #DC2626;
 
   --main-font-family: "Noto Sans", sans-serif;
-  --main-text: 1.6rem;
+  --main-text: 1.8rem;
+  
+  --main-br: 0.8rem;
+  --main-page-pad: 6.4rem;
+  --main-page-width: 1400px;
+  
+  @media (max-width: 500px) {
+    --main-text: 1.6rem;
+    --main-page-pad: 2.4rem;
+  }
 }
 
-.navbar {
+/* ESTILO A ELEMENTOS GENERALES */
+body {
+  p,label, input {
+    font-size: var(--main-text);
+  }
+} 
+
+label {
+  font-weight: bold;
+}
+input {
+  border-radius: var(--main-br);
+  outline: 2px solid var(--color-dark);
+  border: 0;
+  padding: 1rem 2rem;
+  &.valido {
+    outline-color: var(--color-info-ok);
+    color: var(--color-info-ok);
+  }
+  &.no-valido {
+    outline-color: var(--color-info-error);
+    color: var(--color-info-error);
+  }
+  &:focus, 
+  &:active {
+    outline-color: var(--color-primary);
+  }
+}
+
+.contenedor-general {
   width: 100%;
+  padding: 0 var(--main-page-pad);
+  max-width: var(--main-page-width);
+}
+
+.contenedor-flex-hor {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.6rem;
+  align-items: center;
+  width: 100%;
+
+  .col-flex {
+    flex: 1;
+    width: 100%;
+
+    img {
+      width: 100%;
+      max-width: 500px;
+      min-width: 300px;
+    }
+  }
+
+}
+
+.contenedor-flex-ver {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 1.6rem;
+  align-items: center;
+  width: 100%;
+
+}
+
+.titulo-1 {
+  font-size: 3.6rem;
+  font-weight: 700;
+  line-height: 150%; /* 5.4rem */
+}
+.titulo-2 {
+  font-size: 3.2rem;
+  font-weight: 700;
+  line-height: 150%; /* 4.8rem */
+}
+
+.subtitulo {
+  font-size: 2.8rem;
+  font-weight: 300;
+  line-height: 150%; /* 4.2rem */
+}
+
+
+
+/*---------------------------------*/
+
+#login-contenedor {
+  border-radius: var(--main-br);
+  background: var(--Generales-Blanco, #FAFAFA);
+  box-shadow: 0px 0px 10.3px 0px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+
+  #datos-login {
+    padding: 2rem 4rem;
+    max-width: 600px;
+    justify-content: center;
+    background-color: var(--color-lightBg);
+
+    h2 {
+      color: var(--color-primary-dark);
+    }
+
+
+  }
+}
+
+.grupo-input {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: .8rem;
+
+  .input-valid-msg {
+    color: var(--color-info-ok);
+    font-size: 1.6rem;
+  }
+  .input-error-msg {
+    color: var(--color-info-error);
+    font-size: 1.6rem;
+  }
+
+
+}
+
+.navbar-bg {
+  background: var(--color-lightBg);
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  width: 100%;
+}
+.navbar {
+  max-width: var(--main-page-width);
   display: flex;
   padding: 2rem 4rem;
   justify-content: center;
@@ -28,8 +166,6 @@
   gap: 4.8rem;
   align-self: stretch;
 
-  background: var(--color-lightBg);
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 
   .links-acceso,
   .links-cuenta {
@@ -47,6 +183,7 @@
 
 .btn-primary {
   font-size: var(--main-text);
+  background-color: var(--color-light);
   display: inline-flex;
   padding: 1rem 2rem;
   justify-content: center;
@@ -59,6 +196,11 @@
   border: 2px solid;
   text-align: center;
 
+  &:not(:disabled) {
+    cursor: pointer;
+  }
+  
+
   &.btn-sin-relleno {
     color: var(--color-primary-dark);
     border-color: transparent;
@@ -69,8 +211,8 @@
       }
     }
   
-    &.disabled {
-      color: var(--color-grey)
+    &:disabled {
+      color: var(--color-grey);
     }
   }
 
@@ -80,7 +222,7 @@
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     border-color: var(--color-primary-dark);
 
-    &:not(.disabled) {
+    &:not(:disabled) {
       &:hover,  &:focus {
         color: var(--color-dark);
         background-color: var(--color-primary);
@@ -89,7 +231,7 @@
       }
     }
 
-    &.disabled {
+    &:disabled {
       color: var(--color-grey);
       border-color: var(--color-primary);
       background-color: var(--color-grey-light);
@@ -102,17 +244,20 @@
     color: var(--color-primary-dark);
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25); 
 
-    &:not(.disabled) {
+    &:not(:disabled) {
       &:hover, &:focus {
         background-color: var(--color-primary-light);
         box-shadow: none;
       }
     }
-    &.disabled {
+    &:disabled {
       color: var(--color-grey);
       border-color: var(--color-grey);
+      box-shadow: none;
     }
   }
 }
+
+
 
 

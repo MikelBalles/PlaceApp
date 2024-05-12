@@ -1,0 +1,1 @@
+export const URL_PETICION_BBDD = 'http://localhost:8088';
