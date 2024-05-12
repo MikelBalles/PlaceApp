@@ -3,6 +3,7 @@ import './App.scss'
 import { useEffect, useState } from 'react';
 import VistaClientePpal from './components/VistaClientePpal';
 import Navbar from './components/NavBar';
+import Login from './components/Login';
 import Footer from './components/footer';
 function App() {
   const [espacioDto, setEspacioDto] = useState<{
@@ -54,9 +55,13 @@ function App() {
 
   return (
     <>
-      <Navbar sesionIniciada={true} nombreEspacio={espacioDto.nombreEspacio} />
+      <Navbar sesionIniciada={false} nombreEspacio={espacioDto.nombreEspacio} />
+      <div className='contenedor-general'>
+      <Login />
+
       <VistaClientePpal></VistaClientePpal>
       <Footer/>
+      </div>
     </>
   );
 }
