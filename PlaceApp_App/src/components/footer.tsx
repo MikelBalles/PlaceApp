@@ -1,4 +1,4 @@
-import React from 'react';
+
 import logo_PlaceApp from '../assets/logo_PlaceApp.svg';
 
 function Footer() {
@@ -9,7 +9,7 @@ function Footer() {
           <p>Calle de las Amapolas, 36. Madrid</p>
         </div>
         <div className="footer-center">
-          <button className='btn-footer'>Necesitas ayuda?</button>
+          <button className='btn-footer'>¿Necesitas ayuda?</button>
           <p>Contacto</p>
           <p>Preguntas frecuentes</p>
           <p>Texto legal</p>
