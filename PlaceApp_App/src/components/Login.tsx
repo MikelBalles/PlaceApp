@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Input from './Input';
 import infografiaLogin from '../assets/images/infografia-login.svg';
-import { URL_PETICION_BBDD } from '../constantes';
+import { URL_PETICION_BBDD } from '../datos/constantes';
 
 interface modeloInputs {
   name: string;
