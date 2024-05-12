@@ -60,8 +60,8 @@ function App() {
       <Login />
 
       <VistaClientePpal></VistaClientePpal>
-      <Footer/>
       </div>
+      <Footer/>
     </>
   );
 }

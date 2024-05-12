@@ -4,22 +4,13 @@ function VistaClientePpal() {
 return(
 <section className = "VistaClientePpal-container">
     <article className="VistaPpl-article">
-        <div className = "VistaPpl-left">
-            <button className = "btn-vistappl"> Gestionar mis reservas </button>
-        </div>
-        <div className = "VistaPpl-center">
-            <button className = "btn-vistappl"> Modificar mis datos </button>
-        </div>
-        <div className = "VistaPpl-right">
-            <button className = "btn-vistappl"> Cerrar Sesion </button>
-        </div>
+        <button className = "btn-primary btn-borde"> Gestionar mis reservas </button>
+        <button className = "btn-primary btn-borde"> Modificar mis datos </button>
+        <button className = "btn-primary btn-borde"> Cerrar Sesion </button>
     </article>
      <header className="reserva-header">
          <h2>¿Quieres realizar una reserva?</h2>
      </header>
-
-
-
 </section>
 
 
