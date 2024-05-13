@@ -7,7 +7,10 @@ import Login from './components/Login';
 import Footer from './components/footer';
 import { sesionIniciada } from './datos/tipos';
 import { cerrarSesion, iniciarSesion, obtenerSesion } from './logica/manejarSesion';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 function App() {
+
+  const navigate = useNavigate();
 
   //ESTADOS DEL COMPONENTE
   const [estadoSesion, setEstadoSesion] = useState<sesionIniciada>();
@@ -22,11 +25,13 @@ function App() {
   function gestionarInicioSesion(data: sesionIniciada) {
     iniciarSesion(data);
     setEstadoSesion(data);
+    navigate('/cliente');
   }
 
   function gestionarCerrarSesion() {
     cerrarSesion();
     setEstadoSesion(undefined);
+    navigate('/login');
   }
 
 
@@ -43,14 +48,17 @@ function App() {
 
   return (
     <>
-      <Navbar sesionIniciada={estadoSesion} />
-      <div className='contenedor-general'>
-        <Login iniciarSesion={gestionarInicioSesion} />
+    <Navbar sesionIniciada={estadoSesion} />
+    <div className='contenedor-general'>
 
-        <VistaClientePpal sesion={estadoSesion} cerrarSesion={gestionarCerrarSesion}></VistaClientePpal>
-      </div>
-      <Footer />
-    </>
+    <Routes>
+      <Route path="/login" element={<Login sesion={estadoSesion} iniciarSesion={gestionarInicioSesion} />} />
+      <Route path="/cliente" element={<VistaClientePpal sesion={estadoSesion} cerrarSesion={gestionarCerrarSesion} />} />
+    </Routes>
+
+    </div>
+    <Footer />
+  </>
   );
 }
 

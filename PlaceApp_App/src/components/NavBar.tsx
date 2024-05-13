@@ -1,6 +1,7 @@
 import React from 'react';
 import logo_PlaceApp from '../assets/logo_PlaceApp.svg';
 import { sesionIniciada } from '../datos/tipos';
+import { Link } from 'react-router-dom';
 
 interface NavbarProps {
     sesionIniciada: sesionIniciada | undefined;
@@ -12,9 +13,9 @@ const Navbar: React.FC<NavbarProps> = ({ sesionIniciada, mostrarEnlaceAreaPriv=t
         <div className='navbar-bg'>
             <nav className='navbar'>
                 <div className='logo-navbar'>
-                    <a href='#'>
+                    <Link to='/'>
                         <img src={logo_PlaceApp} alt='logo' />
-                    </a>
+                    </Link>
                 </div>
                 <div className="links-acceso">
                     <a className="btn-primary btn-sin-relleno" href="#">Cómo funciona</a>
@@ -23,12 +24,12 @@ const Navbar: React.FC<NavbarProps> = ({ sesionIniciada, mostrarEnlaceAreaPriv=t
 
                 {sesionIniciada ? (
                     <div className='acceso-area-privada'>
-                        <p> Bienvenido, {sesionIniciada.nombreUsuario} <span className='enfasis'> {sesionIniciada.nombrePerfil}</span> </p>
-                       { mostrarEnlaceAreaPriv && <p>Acceder a mi área personal</p>}
+                        <p className='bienvenida-login'> Bienvenido, {sesionIniciada.nombreUsuario} <span className='enfasis'> {sesionIniciada.nombrePerfil.slice(5)}</span> </p>
+                       { mostrarEnlaceAreaPriv && <p className='subtitulo-login'>Acceder a mi área personal</p>}
                     </div>
                 ) : (
                     <div className='links-cuenta'>
-                        <a className="btn-primary btn-borde" href='#'>Iniciar sesión</a>
+                        <Link className="btn-primary btn-borde" to='/login'>Iniciar sesión</Link>
                         <a className="btn-primary btn-relleno" href='#'>Registrarse</a>
                     </div>
                 )}

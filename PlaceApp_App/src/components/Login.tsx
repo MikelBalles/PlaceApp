@@ -3,20 +3,34 @@ import Input from './Input';
 import infografiaLogin from '../assets/images/infografia-login.svg';
 import { URL_PETICION_BBDD } from '../datos/constantes';
 import { modeloInputs, sesionIniciada } from '../datos/tipos';
+import { useNavigate } from 'react-router-dom';
 
 interface LoginProps {
   iniciarSesion: (data: sesionIniciada) => void;
+  sesion: sesionIniciada | undefined;
 }
 
 const inputsIniciales : modeloInputs[] = [
   { name: 'username', value: '', esValido: false },
   { name: 'password', value: '', esValido: false },
 ];
-const Login: React.FC<LoginProps> = ( {iniciarSesion} ) => {
 
+
+const Login: React.FC<LoginProps> = ( {sesion, iniciarSesion} ) => {
+  
   const [inputValidos, setInputValidos] = useState(false);
   const [estadoInputs, setEstadoInputs] = useState<modeloInputs[]>(inputsIniciales);
   const [msgLogin, setMsgLogin] = useState('');
+  
+  //Comprobamos si la sesión ya está iniciada
+  const navigate = useNavigate();
+  useEffect(() => {
+    console.log('Entro por useEffect de navigate en Login.tsx');
+    console.log('sesion: ', sesion);
+    console.log('navigate: ', navigate);
+    
+    sesion && navigate('/cliente');
+  }, [navigate, sesion]);
 
   //Cada vez que cambia el estado de los inputs, comprobamos si son validos
   useEffect(() => {    
