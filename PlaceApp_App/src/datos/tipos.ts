@@ -37,3 +37,11 @@ export interface espacioDto {
         }
     ]
 }
+export interface tipoSubtipoDto   {
+    idTipo :number,
+    nombreTipo : string,
+    idSubtipo: number,
+    nombreSubtipo : string,
+
+}
+

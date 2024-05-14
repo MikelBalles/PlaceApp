@@ -24,6 +24,7 @@ import restproyecto.modelo.dto.EspacioDto;
 import restproyecto.modelo.dto.ExtraDto;
 import restproyecto.modelo.dto.ReservaUsuarioClienteDto;
 import restproyecto.modelo.dto.ReservaUsuarioDto;
+import restproyecto.modelo.dto.TipoSubtipoDto;
 import restproyecto.modelo.entities.Espacio;
 import restproyecto.modelo.entities.Extra;
 import restproyecto.modelo.entities.Perfil;
@@ -41,6 +42,8 @@ import restproyecto.service.UsuarioService;
 /*
  * Controlador Rest para las opciones relacionadas con los clientes de la aplicacion
  */
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -72,8 +75,11 @@ public class ClienteRestController {
 	@Autowired
 	private UsuarioService usuarioService;
 
-	
-	
+	/**
+     * Servicio para gestionar la información de subtipos.
+     */
+	@Autowired
+	private SubtipoService subtipoService;
 	
 	
 	
@@ -255,8 +261,27 @@ public class ClienteRestController {
 
 		    return ResponseEntity.ok(reservaAlta);
 		}
-
-
+		
+		
+		@GetMapping("/tipo/subtipo")
+		public List<TipoSubtipoDto> getTipoySubtipo() {
+			List <Subtipo> listaSubtipo = new ArrayList<>();
+			listaSubtipo = subtipoService.buscarSubtipo();
+			List <TipoSubtipoDto> listaDto = new ArrayList<>();
+			for (Subtipo s:listaSubtipo ) {
+				TipoSubtipoDto tsDto = new TipoSubtipoDto();
+				tsDto.setIdSubtipo(s.getIdSubtipo());
+				tsDto.setNombreSubtipo(s.getNombre());
+				tsDto.setIdTipo(s.getTipo().getIdTipo());
+				tsDto.setNombreTipo(s.getTipo().getNombre());
+				
+				listaDto.add(tsDto);
+			}
+			return listaDto;
+		}
+		
+		
+		
 
 }
 
