@@ -67,7 +67,7 @@ const VistaClientePpal: React.FC<VistaClientePpalProps> = ({ sesion, cerrarSesio
 
 const obtenerImagenPorNombre = (nombreTipo: string): string => {
     switch (nombreTipo) {
-        case 'Deportivo':
+        case 'Espacios Deportivos':
             return Deportivo;
         case 'Salas Privadas':
             return Salas;
