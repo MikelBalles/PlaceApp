@@ -111,8 +111,13 @@ input {
   font-size: 2.8rem;
   font-weight: 300;
   line-height: 150%; /* 4.2rem */
+
+  &.principal {
+    text-align: left;
+  
 }
 
+}
 
 
 /*---------------------------------*/
@@ -336,8 +341,6 @@ footer {
     flex: 1;
   }
 }
-
-
 .reserva-header h2 {
  color: var(--color-dark);
   text-align: center;
@@ -349,7 +352,39 @@ footer {
 }
 
 
+.btn-reservar{
+  display: flex;
+  padding: 10px 20px;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 8px;
+  gap : 10px;
+  flex: 1 0 0 ;
+  background-color: var(--color-primary-light, #C3FEE5);
+  color: var(--Primary-Darker, #066B4F);
+  font-family: "Noto Sans";
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 150%; /* 30px */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 
+  &:hover,
+  &:active{
+    background-color: var(--Primary-Darker, #066B4F);
+    color: var(--color-light, #FAFAFA);
+  }
+
+  img {
+    margin-left: 5px;
+    filter: invert(1) brightness(6.5);
+
+   
+    
+  }
+}
 
 
 

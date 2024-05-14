@@ -20,7 +20,7 @@ public interface SubtipoRepository extends JpaRepository<Subtipo, Integer>{
 	    List<SubtipoEspacioDto> findSubtipoByIdEspacio(int idEspacio);
 
 
-	 
+	
 	 
 	 
 }
