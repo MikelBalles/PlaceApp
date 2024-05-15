@@ -23,7 +23,11 @@ CREATE TABLE `tipos` (
 
 LOCK TABLES `tipos` WRITE;
 /*!40000 ALTER TABLE `tipos` DISABLE KEYS */;
-INSERT INTO `tipos` VALUES (1,'Oficina','Espacios destinados al trabajo y reuniones'),(2,'Restaurante','Lugares para disfrutar de comida y bebida'),(3,'Gimnasio','Espacios para realizar actividad física'),(4,'Espacios Deportivos','Todo tipo de instalaciones deportivas');
+INSERT INTO `tipos` VALUES 
+(1,'Trabajo','Espacios destinados al trabajo y reuniones'),
+(2,'Grandes eventos','Lugares para eventos de gran capacidad'),
+(3,'Salas privadas','Espacios para actividades privadas'),
+(4,'Espacios Deportivos','Todo tipo de espacios para la práctica de deportes');
 /*!40000 ALTER TABLE `tipos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -51,7 +55,14 @@ CREATE TABLE `subtipos` (
 
 LOCK TABLES `subtipos` WRITE;
 /*!40000 ALTER TABLE `subtipos` DISABLE KEYS */;
-INSERT INTO `subtipos` VALUES (1,'Coworking',1),(2,'Sala de conferencias',1),(3,'Cafetería',2),(4,'Restaurante de comida rápida',2),(5,'Sala de pesas',3),(6,'Clases de fitness',3),(7,'Pistas de fútbol',4);
+INSERT INTO `subtipos` VALUES 
+    (1,'Coworking',1),
+    (2,'Sala de conferencias',1),
+    (3,'Salón de actos',2),
+    (4,'Pistas de baloncesto',4),
+    (5,'Clases de pádel',4),
+    (6,'Pistas de fútbol',4),
+    (7,'Sala polivalente', 3);
 /*!40000 ALTER TABLE `subtipos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -76,7 +87,8 @@ CREATE TABLE `provincias` (
 
 LOCK TABLES `provincias` WRITE;
 /*!40000 ALTER TABLE `provincias` DISABLE KEYS */;
-INSERT INTO `provincias` VALUES   (1, 'Madrid'),
+INSERT INTO `provincias` VALUES   
+  (1, 'Madrid'),
   (2, 'Barcelona'),
   (3, 'Valencia'),
   (4, 'Álava (Araba)'),
@@ -190,7 +202,6 @@ LOCK TABLES `usuarios` WRITE;
 INSERT INTO `usuarios` VALUES 
 ('alejandro@fp.com','contraseña2','Alejandro','París','Calle Jazmín 20, Madrid',987654321,1,'2021-02-01',1,2),
 ('mikel@fp.com','contraseña1','Mikel','Ballesteros','Calle Rosa 22, Madrid',123456789,1,'2021-06-01',1,2),
-('tomas@fp.com','contraseña3','Tomas','Escudero','Calle Alamin 30, Madrid',456789123,1,'2021-01-01',1,3),
 ('usuario1@example.com','contraseña1','Juan','García','Calle Mayor, 1',123456789,1,'2023-01-01',1,3),
 ('usuario2@example.com','contraseña2','María','López','Rambla Catalunya, 2',987654321,1,'2023-02-01',2,3),
 ('usuario3@example.com','contraseña3','Carlos','Martínez','Avenida del Puerto, 3',456789123,1,'2023-03-01',3,3);
@@ -231,8 +242,17 @@ LOCK TABLES `espacios` WRITE;
 /*!40000 ALTER TABLE `espacios` DISABLE KEYS */;
 INSERT INTO `espacios` VALUES 
 	(1,'Coworking Centro','Espacio moderno y luminoso','Calle Gran Vía, 123',28001,1,20.00,1,1,'alejandro@fp.com'),
-	(2,'Restaurante El Patio','Ambiente acogedor con terraza','Avenida Diagonal, 456',8001,1,50.00,3,2,'mikel@fp.com'),
-	(3,'Gimnasio FitnessMax','Equipado con las últimas máquinas','Calle Valencia, 789',46001,1,30.00,5,3,'alejandro@fp.com');
+	(2,'Salón de actos Ayto.Zarautz','Salón de actos del Ayuntamiento de Zarautz','Musika Plaza',20800,1,350.00,3,22,'mikel@fp.com'),
+	(3, 'Sala multiusos Ayuntamiento Valdetorres','Sala polivalente para organizar eventos que cuenta con 30 m2','Calle Mayor,22', 28150, 1, 25.00, 7, 1, 'alejandro@fp.com'),
+  (4, 'Pista de baloncesto Polideportivo Zarautz','Pista de baloncesto en el polideportivo municipal','Calle Deportes, 1', 28000,1, 10.00, 4, 22, 'mikel@fp.com'),
+  (5, 'Pista de pádel 1 Club Deportivo Zarautz','Pista de pádel exterior. Cristal','Calle Deportes, 2', 28000,1, 4.00, 4, 22, 'mikel@fp.com'),
+  (6, 'Pista de pádel 2 Club Deportivo Zarautz','Pista de pádel interior. Cristal','Calle Deportes, 2', 28000,1, 5.00, 4, 22, 'mikel@fp.com'),
+  (7, 'Pista de fútbol 11 Polideportivo Zarautz','Campo de fútbol 11 de césped artificial','Calle Deportes, 3', 28000,1, 50.00, 4, 22, 'mikel@fp.com'),
+  (8, 'Sala de Reuniones Innovación', 'Sala de reuniones equipada con tecnología de punta para presentaciones y videoconferencias.', 'Calle Innovación, 10', 28010, 1, 30.00, 2, 1, 'alejandro@fp.com'),
+  (9, 'Sala de Eventos Máxima - Salón Principal', 'Espacio amplio y versátil para eventos de todo tipo, capacidad para 100 personas.', 'Avenida Principal, 50', 28020, 1, 200.00, 3, 1, 'mikel@fp.com'),
+  (10, 'Pista de pádel Cubierta - Número 1', 'Pista de pádel techada con iluminación LED, ideal para jugar en cualquier clima.', 'Calle Deportes, 3', 28000, 1, 8.00, 5, 1, 'alejandro@fp.com'),
+  (11, 'Pista de tenis - Número 2', 'Pista de tenis al aire libre, superficie de tierra batida.', 'Calle Tenis, 5', 28005, 1, 15.00, 6, 22, 'mikel@fp.com');
+
 /*!40000 ALTER TABLE `espacios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -262,8 +282,15 @@ LOCK TABLES `extras` WRITE;
 /*!40000 ALTER TABLE `extras` DISABLE KEYS */;
 INSERT INTO `extras` VALUES 
 (1,'Wifi premium','Conexión de alta velocidad',5.00,1),
-(2,'Servicio de limpieza','Limpieza diaria del espacio',10.00,3),
-(3,'Café ilimitado','Disponible durante toda la estancia',3.50,2);
+(2,'Servicio de limpieza','Limpieza diaria del espacio',10.00,2),
+(3,'Iluminación LED','Iluminación LED de última generación',1.00,5),
+(4,'Iluminación LED','Iluminación LED de última generación',1.00,6),
+(5,'Iluminación LED','Iluminación LED de última generación',3.00,7),
+(6, 'Servicio de Catering', 'Opciones variadas de catering para eventos y reuniones.', 50.00, 9),
+(7, 'Parking Privado', 'Acceso a parking privado para los asistentes al evento.', 20.00, 9),
+(8, 'Alquiler de Raquetas', 'Alquiler de raquetas y pelotas para jugar al pádel.', 5.00, 10),
+(9, 'Clases de Tenis', 'Clases particulares de tenis con entrenadores profesionales.', 30.00, 11);
+
 /*!40000 ALTER TABLE `extras` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -298,10 +325,16 @@ CREATE TABLE `reservas` (
 
 LOCK TABLES `reservas` WRITE;
 /*!40000 ALTER TABLE `reservas` DISABLE KEYS */;
-INSERT INTO `reservas` VALUES (1,1,'usuario1@example.com',25.00,'2023-04-01 10:00:00','2023-04-02 10:00:00',1,'Reunión de trabajo'),
-(2,2,'usuario2@example.com',60.00,'2023-04-03 10:00:00','2023-04-04 10:00:00',1,'Cena de negocios'),
-(3,3,'usuario3@example.com',40.00,'2023-04-05 10:00:00','2023-04-06 10:00:00',1,'Entrenamiento personal'),
-(4,3,'usuario3@example.com',50.00,'2025-04-05 10:00:00','2025-04-05 12:00:00',1,'vacio');
+INSERT INTO `reservas` VALUES 
+(1,1,'usuario1@example.com',25.00,'2024-08-01 10:00:00','2023-08-01 12:00:00',1,'Reunión de trabajo'),
+(2,6,'usuario2@example.com',5.00,'2024-08-05 10:00:00','2024-08-05 11:00:00',1,'Llegaremos 5 min tarde'),
+(3,6,'usuario3@example.com',5.00,'2024-08-05 11:00:00','2024-08-06 12:00:00',1,'---- Ejemplo de observaciones ---'),
+(4,3,'usuario3@example.com',50.00,'2024-08-05 10:00:00','2024-08-05 12:00:00',1,''),
+(5, 11, 'usuario1@example.com', 15.00, '2024-08-10 09:00:00', '2024-08-10 11:00:00', 1, 'Reunión de trabajo con clientes'),
+(6, 10, 'usuario2@example.com', 8.00, '2024-08-12 18:00:00', '2024-08-12 19:00:00', 1, 'Partido de pádel después del trabajo'),
+(7, 6, 'usuario3@example.com', 10.00, '2024-08-15 17:00:00', '2024-08-15 18:00:00', 1, 'Clase de tenis con el entrenador Mario'),
+(8, 7, 'usuario3@example.com', 20.00, '2024-08-20 10:00:00', '2024-08-20 12:00:00', 1, 'Torneo de pádel con amigos');
+
 /*!40000 ALTER TABLE `reservas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -309,5 +342,7 @@ UNLOCK TABLES;
 
 create user proyecto_unir identified by 'proyecto';
 grant all privileges on PROYECTO_PLACEAPP_UNIR_2024.* to proyecto_unir;
+
+
 
 
