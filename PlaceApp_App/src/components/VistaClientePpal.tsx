@@ -36,6 +36,16 @@ const VistaClientePpal: React.FC<VistaClientePpalProps> = ({ sesion, cerrarSesio
         }
     };
 
+    const obtenerTiposUnicos = (): string[] => {
+        const tiposUnicos = new Set<string>();
+        tiposSubtipos.forEach(tipoSubtipo => {
+            tiposUnicos.add(tipoSubtipo.nombreTipo);
+        });
+        return Array.from(tiposUnicos);
+    };
+
+    const tiposUnicos = obtenerTiposUnicos();
+
     if (!sesion) {
         console.log('No hay sesión iniciada');
         return null;
@@ -44,19 +54,19 @@ const VistaClientePpal: React.FC<VistaClientePpalProps> = ({ sesion, cerrarSesio
     return (
         <section className="VistaClientePpal-container">
             <article className="VistaPpl-article">
-                <button className="btn-primary btn-borde"> Gestionar mis reservas </button>
-                <button className="btn-primary btn-borde"> Modificar mis datos </button>
-                <button className="btn-primary btn-borde" onClick={cerrarSesion}> Cerrar Sesion </button>
+                <button className="btn-primary btn-borde">Gestionar mis reservas</button>
+                <button className="btn-primary btn-borde">Modificar mis datos</button>
+                <button className="btn-primary btn-borde" onClick={cerrarSesion}>Cerrar Sesion</button>
             </article>
             <header className="reserva-header">
                 <h2>¿Quieres realizar una reserva?</h2>
             </header>
             <p className="subtitulo principal">Selecciona el tipo de evento que quieres reservar</p>
             <article className="VistaPpl-article">
-                {tiposSubtipos.map((tipoSubtipo, index) => (
+                {tiposUnicos.map((nombreTipo, index) => (
                     <button key={index} className="btn-reservar">
-                        <img src={obtenerImagenPorNombre(tipoSubtipo.nombreTipo)} alt={tipoSubtipo.nombreTipo} />
-                        {tipoSubtipo.nombreTipo}
+                        <img src={obtenerImagenPorNombre(nombreTipo)} alt={nombreTipo} />
+                        {nombreTipo}
                     </button>
                 ))}
             </article>
