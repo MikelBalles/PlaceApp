@@ -134,8 +134,22 @@ public class PropietarioRestController {
      * @return Lista de reservas asociadas al espacio.
      */
 	@GetMapping("/reservas/espacio/{idEspacio}")
-	public List<ReservaEspacioDto> obtenerReservasPorEspacio(@PathVariable int idEspacio) {
-        return reservaService.obtenerReservaPorEspacio(idEspacio);
+	public ResponseEntity<?> obtenerReservasPorEspacio(@PathVariable int idEspacio) {
+		List<Reserva> reservas = new ArrayList<Reserva>();
+		reservas = reservaService.obtenerReservaPorEspacio(idEspacio);
+		if (reservas != null) {
+			List<ReservaEspacioDto> listDto = new ArrayList<ReservaEspacioDto>();
+			for (Reserva r : reservas) {
+				ReservaEspacioDto resDto = new ReservaEspacioDto();
+				resDto.setFechaInicioReserva(r.getFechaInicio());
+				resDto.setFechaFinReserva(r.getFechaFin());
+				listDto.add(resDto);
+			}
+	        return ResponseEntity.status(HttpStatus.OK).body(listDto);
+
+		}
+		
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existen reservas asociadas a ese espacio");
 
 }
 	

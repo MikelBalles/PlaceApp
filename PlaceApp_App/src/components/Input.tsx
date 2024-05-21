@@ -34,17 +34,14 @@ const Input: React.FC<InputProps> = ({
         const  status = {
             text : '✅ Campo validado',
             valid : true,
-        } 
-        
-        console.log('valie', value);
-        console.log('status:', status.valid);
-        
+        }        
              
         if (required && value.trim() === '') {           
             status.text = '❌ Este campo es obligatorio';
             status.valid = false;
             return status;
         }
+
     
         if (minLength && value.length < minLength) {
             status.text = `❌ La longitud mínima es de ${minLength} caracteres`;

@@ -189,6 +189,7 @@ public class ClienteRestController {
 			eDto.setIdEspacio(espacio.getIdEspacio());
 			eDto.setNombreEspacio(espacio.getNombre());
 			eDto.setDescripcion(espacio.getDescripcion());
+			eDto.setDireccion(espacio.getDireccion());
 			eDto.setCp(espacio.getCp());
 			eDto.setPrecio(espacio.getPrecio());
 			eDto.setProvincia(espacio.getProvincia().getNombre());

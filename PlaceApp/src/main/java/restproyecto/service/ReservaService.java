@@ -9,7 +9,7 @@ import restproyecto.modelo.entities.Reserva;
 public interface ReservaService {
 	
 	
-	List<ReservaEspacioDto> obtenerReservaPorEspacio(int idEspacio);
+	List<Reserva> obtenerReservaPorEspacio(int idEspacio);
 	Reserva buscarPorId(int idReserva);
 
 	List<Reserva> obtenerReservaPorUsuario(String username);
