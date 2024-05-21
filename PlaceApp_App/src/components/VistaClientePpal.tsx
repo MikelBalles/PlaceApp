@@ -18,10 +18,16 @@ interface TipoYSubtipoProps {
 
 const VistaClientePpal: React.FC<VistaClientePpalProps> = ({ sesion, cerrarSesion }) => {
     const [tiposSubtipos, setTiposSubtipos] = useState<TipoYSubtipoProps[]>([]);
+    const [subtipos, setSubtipos] = useState<string[]>([]);
 
     useEffect(() => {
         obtenerTiposSubtipos();
     }, []);
+
+    useEffect(() => {
+        console.log(subtipos);
+        
+    }, [subtipos]);
 
     const obtenerTiposSubtipos = async () => {
         try {
@@ -36,7 +42,19 @@ const VistaClientePpal: React.FC<VistaClientePpalProps> = ({ sesion, cerrarSesio
         }
     };
 
+    const obtenerSubtipos = (nombreTipo: string) => {
+        const arraySubtipos = [];
+        for (const tipoSubtipo of tiposSubtipos) {
+            if (tipoSubtipo.nombreTipo === nombreTipo) {
+                arraySubtipos.push(tipoSubtipo.nombreSubtipo);
+            }
+        }
+        setSubtipos(arraySubtipos);
+    }
+
     const obtenerTiposUnicos = (): string[] => {
+        console.log('tiposSubtipos:', tiposSubtipos);
+        
         const tiposUnicos = new Set<string>();
         tiposSubtipos.forEach(tipoSubtipo => {
             tiposUnicos.add(tipoSubtipo.nombreTipo);
@@ -64,7 +82,7 @@ const VistaClientePpal: React.FC<VistaClientePpalProps> = ({ sesion, cerrarSesio
             <p className="subtitulo principal">Selecciona el tipo de evento que quieres reservar</p>
             <article className="VistaPpl-article">
                 {tiposUnicos.map((nombreTipo, index) => (
-                    <button key={index} className="btn-reservar">
+                    <button key={index} className="btn-reservar" onClick={() => obtenerSubtipos(nombreTipo)}>
                         <img src={obtenerImagenPorNombre(nombreTipo)} alt={nombreTipo} />
                         {nombreTipo}
                     </button>
