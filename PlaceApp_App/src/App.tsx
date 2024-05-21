@@ -2,6 +2,7 @@
 import './App.scss'
 import { useEffect, useState } from 'react';
 import VistaClientePpal from './components/VistaClientePpal';
+import VistaReservarEspacio from './components/VistaReservarEspacio';
 import Navbar from './components/NavBar';
 import Login from './components/Login';
 import Footer from './components/footer';
@@ -46,7 +47,7 @@ function App() {
   */
 
 
-  return (
+    return (    
     <>
     <Navbar sesionIniciada={estadoSesion} />
     <div className='contenedor-general'>
@@ -54,6 +55,7 @@ function App() {
     <Routes>
       <Route path="/login" element={<Login sesion={estadoSesion} iniciarSesion={gestionarInicioSesion} />} />
       <Route path="/cliente" element={<VistaClientePpal sesion={estadoSesion} cerrarSesion={gestionarCerrarSesion} />} />
+      <Route path="/reservarEspacio" element={<VistaReservarEspacio sesion={estadoSesion} />} />
     </Routes>
 
     </div>
