@@ -88,8 +88,8 @@ public class PropietarioRestController {
 	@Autowired
 	private ExtraService extraService;
 	
-<<<<<<< HEAD
-=======
+
+
 	/**
      * Servicio para gestionar la información de los perfiles de usuario.
      */
@@ -97,62 +97,7 @@ public class PropietarioRestController {
 	private PerfilService perfilService;
 	
 	
-	
-	/**
-     * Consulta a la base de datos que obtiene todas las provincias disponibles.
-     *
-     * @return Lista de todas las provincias.
-     */
-	@GetMapping("/provincias")
-	public List <Provincia> todasProvincias (){
-		return provinciaService.buscarProvincias();
-	}
-	
-	/**
-     * Consulta a la base de datos que obtiene todos los subtipos disponibles.
-     *
-     * @return Lista de todos los subtipos.
-     */
-	@GetMapping("/subtipo")
-	public List <Subtipo> todosSubtipo (){
-		return subtipoService.buscarSubtipo();
-	}
-	
-	/**
-     * Consulta a la base de datos que obtiene los subtipos asociados a un espacio.
-     *
-     * @param idEspacio Identificador del espacio.
-     * @return Lista de subtipos asociados al espacio.
-     */
-	@GetMapping("/subtipo/espacio/{idEspacio}")
-	public List<SubtipoEspacioDto> obtenerSubtipoPorEspacio(@PathVariable int idEspacio) {
-        return subtipoService.obtenerSubtipoPorEspacio(idEspacio);
-	
-	}
-	 /**
-     * Consulta a la base de datos que obtiene las reservas asociadas a un espacio.
-     *
-     * @param idEspacio Identificador del espacio.
-     * @return Lista de reservas asociadas al espacio.
-     */
-	@GetMapping("/reservas/espacio/{idEspacio}")
-	public ResponseEntity<?> obtenerReservasPorEspacio(@PathVariable int idEspacio) {
-		List<Reserva> reservas = new ArrayList<Reserva>();
-		reservas = reservaService.obtenerReservaPorEspacio(idEspacio);
-		if (reservas != null) {
-			List<ReservaEspacioDto> listDto = new ArrayList<ReservaEspacioDto>();
-			for (Reserva r : reservas) {
-				ReservaEspacioDto resDto = new ReservaEspacioDto();
-				resDto.setFechaInicioReserva(r.getFechaInicio());
-				resDto.setFechaFinReserva(r.getFechaFin());
-				listDto.add(resDto);
-			}
-	        return ResponseEntity.status(HttpStatus.OK).body(listDto);
 
-		}
-		
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existen reservas asociadas a ese espacio");
->>>>>>> df0ef95521d35f2e973ebd54464dca10cbc0c18f
 
 	
 

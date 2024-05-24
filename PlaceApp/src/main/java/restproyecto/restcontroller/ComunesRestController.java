@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +22,7 @@ import restproyecto.service.EspacioService;
 import restproyecto.service.ProvinciaService;
 import restproyecto.service.ReservaService;
 import restproyecto.service.SubtipoService;
+import restproyecto.modelo.entities.Reserva;
 /**
  * Controlador REST para las operaciones relacionadas con las reservas y gestión de espacios comunes entre clientes y propietarios.
  */
@@ -117,20 +120,31 @@ public class ComunesRestController {
         return subtipoService.obtenerSubtipoPorEspacio(idEspacio);
 	
 	  }
-	
-    	
-   	 /**
-        * Consulta a la base de datos que obtiene las reservas asociadas a un espacio.
-        *
-        * @param idEspacio Identificador del espacio.
-        * @return Lista de reservas asociadas al espacio.
-        */
-   	@GetMapping("/reservas/espacio/{idEspacio}")
-   	public List<ReservaEspacioDto> obtenerReservasPorEspacio(@PathVariable int idEspacio) {
-           return reservaService.obtenerReservaPorEspacio(idEspacio);
+   
+	 /**
+     * Consulta a la base de datos que obtiene las reservas asociadas a un espacio.
+     *
+     * @param idEspacio Identificador del espacio.
+     * @return Lista de reservas asociadas al espacio.
+     */
+	@GetMapping("/reservas/espacio/{idEspacio}")
+	public ResponseEntity<?> obtenerReservasPorEspacio(@PathVariable int idEspacio) {
+		List<Reserva> reservas = new ArrayList<Reserva>();
+		reservas = reservaService.obtenerReservaPorEspacio(idEspacio);
+		if (reservas != null) {
+			List<ReservaEspacioDto> listDto = new ArrayList<ReservaEspacioDto>();
+			for (Reserva r : reservas) {
+				ReservaEspacioDto resDto = new ReservaEspacioDto();
+				resDto.setFechaInicioReserva(r.getFechaInicio());
+				resDto.setFechaFinReserva(r.getFechaFin());
+				listDto.add(resDto);
+			}
+	        return ResponseEntity.status(HttpStatus.OK).body(listDto);
 
-   }
-   	
+		}
+		
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No existen reservas asociadas a ese espacio");
+	}
    	
    	/**
         * Consutla a la base de datos que obtiene todos los espacios disponibles.
