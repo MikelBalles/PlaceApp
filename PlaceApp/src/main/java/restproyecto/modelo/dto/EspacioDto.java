@@ -18,6 +18,7 @@ public class EspacioDto {
     private String nombreEspacio;
     private String descripcion;
     private int cp;
+    private String direccion;
     private String provincia;
     private String subtipo;
     private double precio;

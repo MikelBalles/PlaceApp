@@ -24,11 +24,7 @@ const Login: React.FC<LoginProps> = ( {sesion, iniciarSesion} ) => {
   
   //Comprobamos si la sesión ya está iniciada
   const navigate = useNavigate();
-  useEffect(() => {
-    console.log('Entro por useEffect de navigate en Login.tsx');
-    console.log('sesion: ', sesion);
-    console.log('navigate: ', navigate);
-    
+  useEffect(() => {    
     sesion && navigate('/cliente');
   }, [navigate, sesion]);
 

@@ -22,20 +22,14 @@ export interface espacioDto {
     nombreEspacio: string,
     descripcion: string,
     cp: number,
+    direccion: string,
     provincia: string,
     subtipo: number,
     precio: number,
     nombreUsername: string,
     telefonoUsername: number,
     correoUsername: string,
-    extras: [
-        {
-            idExtra: number,
-            nombre: string,
-            precio: number,
-            descripcion: string
-        }
-    ]
+    extras: extraDto[];
 }
 export interface tipoSubtipoDto   {
     idTipo :number,
@@ -44,4 +38,11 @@ export interface tipoSubtipoDto   {
     nombreSubtipo : string,
 
 }
+export interface extraDto {
+    idExtra: number,
+    nombre: string,
+    precio: number,
+    descripcion: string
+}
+
 

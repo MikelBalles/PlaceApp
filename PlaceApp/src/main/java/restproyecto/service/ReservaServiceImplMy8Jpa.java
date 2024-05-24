@@ -17,7 +17,7 @@ public class ReservaServiceImplMy8Jpa implements ReservaService {
 	private ReservaRepository rrepo;
 //metodo para poder sacar las reservas asociadas a un espacio pasandole el id del espacio 
 	@Override
-	public List<ReservaEspacioDto> obtenerReservaPorEspacio(int idEspacio) {
+	public List<Reserva> obtenerReservaPorEspacio(int idEspacio) {
         return rrepo.findByEspacioId(idEspacio);
 	}
 	@Override

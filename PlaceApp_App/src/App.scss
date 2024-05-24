@@ -93,7 +93,10 @@ input {
   gap: 1.6rem;
   align-items: center;
   width: 100%;
+}
 
+.mini-gap {
+  gap: 0.8rem;
 }
 
 .titulo-1 {
@@ -164,8 +167,82 @@ input {
     font-size: 1.6rem;
   }
 
+}
+
+/*--------- RESERVAR ESPACIO ------------------------*/
+.contenedor-reserva {
+  align-items: flex-start;
+  gap: 8rem;
+  .contenedor-opciones {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.6rem; 
+
+    label {
+      font-size: 2.8rem;
+      font-weight: 300;
+      line-height: 150%;
+    }
+  }
+  .info-espacio {
+    gap: 1.6rem;
+    align-items: flex-start;
+    .subtitulo {
+      color: var(--color-primary-dark);
+    }
+    .info-grupo {
+      align-items: flex-start;
+      .titulo {
+        font-weight: bold;
+      }
+    }
+  }
+  .info-extra {
+    align-items: flex-start;
+
+    .titulo {
+      font-weight: bold;
+    }
+  }
+}
+.contenedor-horas {
+  display: flex;
+  align-items: flex-start;
+  align-content: flex-start;
+  gap: 0.8rem;
+  align-self: stretch;
+  flex-wrap: wrap; 
+}
+
+.select-hora {
+  padding: 0.8rem 1.6rem;
+  background-color: var(--color-lightBg);
+  font-size: var(--main-text);
+  border: 2px solid transparent; //Para que no se mueva el contenido
+  border-radius: 0.8rem;
+
+  &:not(:disabled) {
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--color-primary-light);
+    }
+    &.selected {
+      font-weight: bold;
+      border-radius: 0.8rem;
+      color: var(--color-primary-dark);
+      border-color: 2px solid var(--color-primary-dark);
+      background-color: var(--color-primary-light);
+    }
+  }
+  &:disabled {
+    background-color: var(--color-info-error);
+    color: var(--color-light);
+  }
 
 }
+/*---------------------------------*/
 
 .navbar-bg {
   background: var(--color-lightBg);
