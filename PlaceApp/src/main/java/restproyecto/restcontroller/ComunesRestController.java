@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import restproyecto.modelo.dto.EspacioClienteDto;
 import restproyecto.modelo.dto.ReservaEspacioDto;
 import restproyecto.modelo.dto.SubtipoEspacioDto;
+import restproyecto.modelo.dto.TipoSubtipoDto;
 import restproyecto.modelo.entities.Espacio;
 import restproyecto.modelo.entities.Provincia;
 import restproyecto.modelo.entities.Subtipo;
@@ -155,6 +156,24 @@ public class ComunesRestController {
    	public List <Espacio> todosEspacios (){
    		return espacioService.buscarTodosEspacios();
    	}
+	
+	
+	@GetMapping("/tipo/subtipo")
+	public List<TipoSubtipoDto> getTipoySubtipo() {
+		List <Subtipo> listaSubtipo = new ArrayList<>();
+		listaSubtipo = subtipoService.buscarSubtipo();
+		List <TipoSubtipoDto> listaDto = new ArrayList<>();
+		for (Subtipo s:listaSubtipo ) {
+			TipoSubtipoDto tsDto = new TipoSubtipoDto();
+			tsDto.setIdSubtipo(s.getIdSubtipo());
+			tsDto.setNombreSubtipo(s.getNombre());
+			tsDto.setIdTipo(s.getTipo().getIdTipo());
+			tsDto.setNombreTipo(s.getTipo().getNombre());
+			
+			listaDto.add(tsDto);
+		}
+		return listaDto;
+	}
 	
 	
 	

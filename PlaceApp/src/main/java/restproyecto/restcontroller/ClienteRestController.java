@@ -224,25 +224,7 @@ public class ClienteRestController {
 		    return ResponseEntity.ok(reservaAlta);
 		}
 		
-		
-		@GetMapping("/tipo/subtipo")
-		public List<TipoSubtipoDto> getTipoySubtipo() {
-			List <Subtipo> listaSubtipo = new ArrayList<>();
-			listaSubtipo = subtipoService.buscarSubtipo();
-			List <TipoSubtipoDto> listaDto = new ArrayList<>();
-			for (Subtipo s:listaSubtipo ) {
-				TipoSubtipoDto tsDto = new TipoSubtipoDto();
-				tsDto.setIdSubtipo(s.getIdSubtipo());
-				tsDto.setNombreSubtipo(s.getNombre());
-				tsDto.setIdTipo(s.getTipo().getIdTipo());
-				tsDto.setNombreTipo(s.getTipo().getNombre());
-				
-				listaDto.add(tsDto);
-			}
-			return listaDto;
-		}
-		
-		
+	
 		
 
 }
