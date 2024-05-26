@@ -226,6 +226,7 @@ public class ClienteRestController {
 		
 		@PostMapping("/espacio/altaReserva")
 		public ResponseEntity<?> reservarEspacio(@RequestBody ReservaUsuarioDto bodyDto) {
+			System.out.println(bodyDto);
 		    // Comprobamos si el usuario tiene el rol de cliente
 		    Usuario usu = usuarioService.obtenerUsuarioPorId(bodyDto.getUsernameReserva());
 		    if (usu == null) {

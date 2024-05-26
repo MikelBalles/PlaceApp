@@ -31,6 +31,15 @@ export interface espacioDto {
     correoUsername: string,
     extras: extraDto[];
 }
+export interface reservaEspacioDto {
+    idEspacio: number,
+    usernameReserva: string,
+    precioVenta: number,
+    fechaInicioReserva: string,
+    fechaFinReserva: string,
+    observacionReserva: string,
+
+}
 export interface tipoSubtipoDto   {
     idTipo :number,
     nombreTipo : string,
@@ -44,5 +53,15 @@ export interface extraDto {
     precio: number,
     descripcion: string
 }
+
+export interface Reserva {
+    fechaInicioReserva: string,
+    fechaFinReserva: string
+ }
+
+ export interface horaConDisponibilidad {
+    horaDate: Date,
+    disponible: boolean;
+ }
 
 

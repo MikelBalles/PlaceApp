@@ -1,38 +1,45 @@
 import React, { useState } from "react";
 import { extraDto } from "../datos/tipos";
+import icoCheck from "../assets/ico-check.svg";
+import icoError from "../assets/ico-error.svg";
 
 interface ExtrasReservaProps {
-    extras: extraDto[] | undefined;
+    extra: extraDto;
+    onClickExtraProps: (extra: extraDto) => void;
 }
 
-const ExtrasReserva: React.FC<ExtrasReservaProps> = ({ extras }) => {
+const ExtrasReserva: React.FC<ExtrasReservaProps> = ({ extra , onClickExtraProps}) => {
 
     const [extraAñadido, setExtraAñadido] = useState<boolean>(false);
 
+    const nombreClase = `extra-button btn-primary btn-sin-relleno ${extraAñadido ? 'extra-added' : ''}`;
+
     const onClickExtra = () => {
         setExtraAñadido(!extraAñadido);
+        //Quitamos el focus del botón
+        const boton = document.activeElement as HTMLElement;
+        boton.blur();
+        onClickExtraProps(extra);
     }
 
     return (
-        <div className="contenedor-flex-ver contenedor-extras">
-        {extras?.map((extra) => (
-            <li key={extra.idExtra} className="contenedor-flex-hor item-extra">
+            <div className="contenedor-flex-hor item-extra">
                 <div className="col-flex contenedor-flex-ver mini-gap info-extra">
-                    <p className="titulo">{extra.nombre}</p>
-                    <p>{extra.descripcion}</p>
+                    <p className="titulo">{extra?.nombre}</p>
+                    <p>{extra?.descripcion}</p>
                 </div>
                 <div className="col-flex contenedor-flex-ver mini-gap">
-                    <p>{extra.precio} € por hora</p>
-                    <button className={`extra-button ${extraAñadido ? 'extra-added' : ''}`}
-                            onClick={onClickExtra} >
-                        {extraAñadido ? 'Añadido' : 'Añadir extra'}
+                    <p>{extra?.precio} € por hora</p>
+                    <button className={nombreClase}
+                            onClick={onClickExtra}
+                            type="button" >
+                        <img className="icono-extra-anadido" src={icoCheck}/>
+                        <img className="icono-extra-eliminar" src={icoError}/>
+                        <span className="extra-defecto">{extraAñadido ? 'Añadido' : 'Añadir extra'}</span>
+                        <span className="extra-eliminar-texto">Eliminar extra</span>
                     </button>
                 </div>
-            </li>
-
-        ))}
-
-        </div>
+            </div>
     );
 };
 
