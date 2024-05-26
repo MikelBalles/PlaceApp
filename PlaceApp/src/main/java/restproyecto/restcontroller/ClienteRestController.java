@@ -1,7 +1,5 @@
 package restproyecto.restcontroller;
 
-import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,9 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import restproyecto.modelo.dto.AltaEspacioDto;
-import restproyecto.modelo.dto.AltaExtraDto;
-import restproyecto.modelo.dto.EspacioClienteDto;
 import restproyecto.modelo.dto.EspacioDto;
 import restproyecto.modelo.dto.ExtraDto;
 import restproyecto.modelo.dto.ReservaUsuarioClienteDto;
@@ -33,17 +28,12 @@ import restproyecto.modelo.entities.Subtipo;
 import restproyecto.modelo.entities.Usuario;
 import restproyecto.service.EspacioService;
 import restproyecto.service.ExtraService;
-import restproyecto.service.PerfilService;
-import restproyecto.service.ProvinciaService;
 import restproyecto.service.ReservaService;
 import restproyecto.service.SubtipoService;
-import restproyecto.service.TipoService;
 import restproyecto.service.UsuarioService;
-/*
- * Controlador Rest para las opciones relacionadas con los clientes de la aplicacion
+/**
+ * Controlador REST para las operaciones relacionadas con las reservas y gestión de espacios por parte de los Clientes.
  */
-import org.springframework.web.bind.annotation.RequestParam;
-
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -83,35 +73,6 @@ public class ClienteRestController {
 	
 	
 	
-	
-	
-	 /**
-     * Peticion a la base de datos que obtiene los espacios filtrando por un subtipo y una provincia.
-     *
-     * @param idSubtipo Identificador del subtipo de espacio.
-     * @param idProv    Identificador de la provincia.
-     * @return Lista de espacios filtrados.
-     */
-	
-	
-	@GetMapping("/espacio/subtipo/provincia/{idSubtipo}/{idProv}")
-	public List<EspacioClienteDto> buscarPorSubtipoyProv(@PathVariable int idSubtipo, @PathVariable int idProv) {
-	    List<Espacio> espacios = espacioService.buscarEspaciosSubtipoProvincia(idSubtipo, idProv);
-	    List<EspacioClienteDto> espaciosDto = new ArrayList<>();
-
-	    for (Espacio e : espacios) {
-	        EspacioClienteDto eDto = new EspacioClienteDto();
-	        eDto.setIdEspacio(e.getIdEspacio());
-	        eDto.setNombre(e.getNombre());
-	        eDto.setDescripcion(e.getDescripcion());
-	        eDto.setDireccion(e.getDireccion());
-	        eDto.setPrecio(e.getPrecio());
-	        espaciosDto.add(eDto);
-	    }
-
-	    return espaciosDto;
-	}
-		
 	
 	/**
      * Consulta a la base de datos que obtiene las reservas asociadas a un usuario.
@@ -264,25 +225,7 @@ public class ClienteRestController {
 		    return ResponseEntity.ok(reservaAlta);
 		}
 		
-		
-		@GetMapping("/tipo/subtipo")
-		public List<TipoSubtipoDto> getTipoySubtipo() {
-			List <Subtipo> listaSubtipo = new ArrayList<>();
-			listaSubtipo = subtipoService.buscarSubtipo();
-			List <TipoSubtipoDto> listaDto = new ArrayList<>();
-			for (Subtipo s:listaSubtipo ) {
-				TipoSubtipoDto tsDto = new TipoSubtipoDto();
-				tsDto.setIdSubtipo(s.getIdSubtipo());
-				tsDto.setNombreSubtipo(s.getNombre());
-				tsDto.setIdTipo(s.getTipo().getIdTipo());
-				tsDto.setNombreTipo(s.getTipo().getNombre());
-				
-				listaDto.add(tsDto);
-			}
-			return listaDto;
-		}
-		
-		
+	
 		
 
 }
