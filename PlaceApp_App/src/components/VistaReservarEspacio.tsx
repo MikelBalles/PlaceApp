@@ -4,7 +4,9 @@ import Input from "./Input";
 import SelectHoras from "./SelectHoras";
 import ExtrasReserva from "./ExtrasReserva";
 import { obtenerHorasDisponiblesYNoDisponibles, obtenerMaxHorasReservables } from "../logica/gestionarFechas";
-import { URL_PETICION_BBDD } from "../datos/constantes";
+import { IR_ATRAS, URL_PETICION_BBDD } from "../datos/constantes";
+import { useParams } from "react-router-dom";
+import Volver from "./Volver";
 
 interface VistaReservarEspacioProps {
     sesion: sesionIniciada | undefined;
@@ -17,6 +19,7 @@ const inputsIniciales: modeloInputs[] = [
 
 const VistaReservarEspacio: React.FC<VistaReservarEspacioProps> = ({ sesion }) => {
 
+    const {idEspacio} = useParams();
     
     const calcularHoraFin = (horaInicio: number, numHoras: number) => {
         setHoraFin(horaInicio + numHoras);
@@ -152,20 +155,20 @@ const VistaReservarEspacio: React.FC<VistaReservarEspacioProps> = ({ sesion }) =
 
     useEffect(() => {
 
-        fetch(`${URL_PETICION_BBDD}/rest/cliente/espacio/cliente/6`)
+        fetch(`${URL_PETICION_BBDD}/rest/cliente/espacio/cliente/${idEspacio}`)
             .then(response => response.json())
             .then(data => {
                 setEspacioDto(data)
             })
             .catch(error => console.log(error));
 
-        fetch(`${URL_PETICION_BBDD}/rest/propietario/reservas/espacio/6`)
+        fetch(`${URL_PETICION_BBDD}/rest/comun/reservas/espacio/${idEspacio}`)
             .then(response => response.json())
             .then(data => {
                 setReservaEspacioDto(data)
             })
             .catch(error => console.log(error));
-    }, []);
+    }, [idEspacio,]);
 
     useEffect(() => {
         if (fechaSeleccionada) {
@@ -198,7 +201,8 @@ const VistaReservarEspacio: React.FC<VistaReservarEspacioProps> = ({ sesion }) =
     }
     return (
         <>
-            <h1 className="titulo-1">Reservar espacio</h1>
+        <Volver ruta={IR_ATRAS}/>
+            <h1 className="titulo-1 titulo-reserva">Reservar espacio</h1>
             <form onSubmit={enviarFormulario}>
                 <div className="contenedor-flex-hor contenedor-reserva">
                     <div className="col-flex contenedor-opciones">

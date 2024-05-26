@@ -81,6 +81,7 @@ public class ComunesRestController {
 	        eDto.setDescripcion(e.getDescripcion());
 	        eDto.setDireccion(e.getDireccion());
 	        eDto.setPrecio(e.getPrecio());
+	        eDto.setIdSubtipo(e.getSubtipo().getIdSubtipo());
 	        espaciosDto.add(eDto);
 	    }
 

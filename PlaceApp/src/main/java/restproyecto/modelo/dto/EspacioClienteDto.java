@@ -15,4 +15,5 @@ public class EspacioClienteDto {
 	    private String descripcion;
 	    private String direccion;
 	    private double precio;
+	    private int idSubtipo;
 }

@@ -104,6 +104,7 @@ public class ClienteRestController {
 				ruDto.setFechaInicio(r.getFechaInicio());
 				ruDto.setFechaFin(r.getFechaFin());
 				ruDto.setPrecioVenta(r.getPrecioVenta());
+				ruDto.setIdSubtipo(r.getEspacio().getSubtipo().getIdSubtipo());
 				reservasDto.add(ruDto);
 			}
 			

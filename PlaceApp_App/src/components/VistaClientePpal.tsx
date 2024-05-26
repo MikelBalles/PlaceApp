@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from 'react';   
-import { sesionIniciada } from '../datos/tipos';
-import Deportivo from '../assets/Deportivo.svg';
-import Salas from '../assets/Salas_privadas.svg';
-import Gastronomia from '../assets/Gastronomia.svg';
+import React, { useState, useEffect, useRef } from 'react';
+import { provinciaDto, sesionIniciada, subtipoDto, tipoDto } from '../datos/tipos';
+import { URL_PETICION_BBDD } from '../datos/constantes';
+import { useNavigate } from 'react-router-dom';
+import { obtenerImagenPorNombre, obtenerImagenSubtipo } from '../logica/iconosTipos';
+
+
+
 
 interface VistaClientePpalProps {
     sesion: sesionIniciada | undefined;
@@ -17,21 +20,13 @@ interface TipoYSubtipoProps {
 }
 
 const VistaClientePpal: React.FC<VistaClientePpalProps> = ({ sesion, cerrarSesion }) => {
-    const [tiposSubtipos, setTiposSubtipos] = useState<TipoYSubtipoProps[]>([]);
-    const [subtipos, setSubtipos] = useState<string[]>([]);
 
-    useEffect(() => {
-        obtenerTiposSubtipos();
-    }, []);
+    const navigate = useNavigate();
 
-    useEffect(() => {
-        console.log(subtipos);
-        
-    }, [subtipos]);
-
+    //Petición a la base de datos para obtener los tipos y subtipos
     const obtenerTiposSubtipos = async () => {
         try {
-            const response = await fetch('http://localhost:8088/rest/cliente/tipo/subtipo');
+            const response = await fetch(`${URL_PETICION_BBDD}/rest/comun/tipo/subtipo`);
             if (!response.ok) {
                 throw new Error('Error al obtener tipos y subtipos del API');
             }
@@ -42,24 +37,88 @@ const VistaClientePpal: React.FC<VistaClientePpalProps> = ({ sesion, cerrarSesio
         }
     };
 
-    const obtenerSubtipos = (nombreTipo: string) => {
-        const arraySubtipos = [];
+
+    const provinciasRef = useRef<provinciaDto[]>([]);
+    const [tiposSubtipos, setTiposSubtipos] = useState<TipoYSubtipoProps[]>([]);
+    const [subtipos, setSubtipos] = useState<subtipoDto[]>([]);
+    const [selectedTipo, setSelectedTipo] = useState<number>();
+    const [selectedSubtipo, setSelectedSubtipo] = useState<number>();
+    const [selectedProvincia, setSelectedProvincia] = useState<number>(1);
+    const [esValido, setEsValido] = useState<boolean>(false);
+
+
+    useEffect(() => {
+        obtenerTiposSubtipos();
+
+        //Obtenemos las provincias
+        fetch(`${URL_PETICION_BBDD}/rest/comun/provincias`)
+            .then(response => response.json())
+            .then(data => {
+                provinciasRef.current = data;
+            })
+            .catch(error => console.error('Error al obtener provincias del API:', error));
+    }, []);
+
+    useEffect(() => {
+        if (selectedTipo && selectedSubtipo && selectedProvincia) {
+            setEsValido(true);
+        } else {
+            setEsValido(false);
+        }
+    }, [selectedTipo, selectedSubtipo, selectedProvincia]);
+
+    const clickEnTipo = (idTipo: number) => {
+        obtenerSubtipos(idTipo);
+        setSelectedTipo(idTipo);
+    }
+
+    const clickEnSubtipo = (idSubtipo: number) => {
+        setSelectedSubtipo(idSubtipo);
+    }
+
+    const clickEnBuscarEspacios = () => {
+        console.log('Datos', selectedTipo, selectedSubtipo, selectedProvincia);
+
+        //Comprobamos si existen los valores seleccionados
+        if (!esValido) {
+            alert('Debes seleccionar un tipo, un subtipo y una provincia para buscar espacios');
+            return;
+        }
+
+        //Redirigimos a la vista de espacios
+        navigate(`/espacios/${selectedSubtipo}/${selectedProvincia}`);
+    }
+
+
+    const obtenerSubtipos = (idTipo: number) => {
+        const arraySubtipos: subtipoDto[] = [];
+
         for (const tipoSubtipo of tiposSubtipos) {
-            if (tipoSubtipo.nombreTipo === nombreTipo) {
-                arraySubtipos.push(tipoSubtipo.nombreSubtipo);
+            if (tipoSubtipo.idTipo === idTipo) {
+                const subtipo: subtipoDto = {
+                    id: tipoSubtipo.idSubtipo,
+                    nombre: tipoSubtipo.nombreSubtipo
+                };
+                arraySubtipos.push(subtipo);
             }
         }
         setSubtipos(arraySubtipos);
     }
 
-    const obtenerTiposUnicos = (): string[] => {
-        console.log('tiposSubtipos:', tiposSubtipos);
-        
-        const tiposUnicos = new Set<string>();
+    const obtenerTiposUnicos = (): tipoDto[] => {
+
+        const tiposUnicos: tipoDto[] = [];
+
         tiposSubtipos.forEach(tipoSubtipo => {
-            tiposUnicos.add(tipoSubtipo.nombreTipo);
+            const tipo: tipoDto = {
+                id: tipoSubtipo.idTipo,
+                nombre: tipoSubtipo.nombreTipo
+            };
+
+            if (!tiposUnicos.some(tipoUnico => tipoUnico.id === tipo.id))
+                tiposUnicos.push(tipo);
         });
-        return Array.from(tiposUnicos);
+        return tiposUnicos;
     };
 
     const tiposUnicos = obtenerTiposUnicos();
@@ -70,40 +129,57 @@ const VistaClientePpal: React.FC<VistaClientePpalProps> = ({ sesion, cerrarSesio
     }
 
     return (
-        <section className="VistaClientePpal-container">
-            <article className="VistaPpl-article">
+        <section className="VistaClientePpal-container contenedor-botones">
+            <div className="contenedor-botones">
                 <button className="btn-primary btn-borde">Gestionar mis reservas</button>
                 <button className="btn-primary btn-borde">Modificar mis datos</button>
-                <button className="btn-primary btn-borde" onClick={cerrarSesion}>Cerrar Sesion</button>
-            </article>
+                <button className="btn-primary btn-cerrar-sesion" onClick={cerrarSesion}>Cerrar Sesion</button>
+            </div>
             <header className="reserva-header">
                 <h2>¿Quieres realizar una reserva?</h2>
             </header>
-            <p className="subtitulo principal">Selecciona el tipo de evento que quieres reservar</p>
             <article className="VistaPpl-article">
-                {tiposUnicos.map((nombreTipo, index) => (
-                    <button key={index} className="btn-reservar" onClick={() => obtenerSubtipos(nombreTipo)}>
-                        <img src={obtenerImagenPorNombre(nombreTipo)} alt={nombreTipo} />
-                        {nombreTipo}
-                    </button>
-                ))}
+                <h2 className="subtitulo principal">Selecciona el tipo de espacio que quieres reservar</h2>
+                <div className='listado-tipos'>
+                    {tiposUnicos.map((tipo) => (
+                        <button key={tipo.id} className={`btn-tipo ${selectedTipo === tipo.id && 'selected'}`} onClick={() => clickEnTipo(tipo.id)}>
+                            <img src={obtenerImagenPorNombre(tipo.nombre)} alt={tipo.nombre} />
+                            {tipo.nombre}
+                        </button>
+                    ))}
+                </div>
             </article>
-            <p className="subtitulo principal">¿En qué estás pensando exactamente?</p>
+
+            {selectedTipo != undefined && (
+                <article className="VistaPpl-article">
+                    <h2 className="subtitulo principal">¿En qué estas pensando exactamente?</h2>
+                    <div className='listado-tipos'>
+                        {subtipos.map((subtipo) => (
+                            <button key={subtipo.id} className={`btn-tipo ${selectedSubtipo === subtipo.id && 'selected'}`} onClick={() => clickEnSubtipo(subtipo.id)}>
+                                <img src={obtenerImagenSubtipo(subtipo.id)} alt={subtipo.nombre} />
+                                {subtipo.nombre}
+                            </button>
+                        ))}
+                    </div>
+                </article>
+            )}
+
+            {selectedSubtipo !== undefined && (
+                <article className="VistaPpl-article">
+                    <h2 className="subtitulo principal">¿En qué lugar quieres reservar?</h2>
+                    <select name="select-lugar" onChange={e => setSelectedProvincia(parseInt(e.target.selectedOptions[0].dataset.provId!))}>
+                        {provinciasRef.current.map((p) => (
+                            <option key={p.idProv} value={p.nombre} data-prov-id={p.idProv}>
+                                {p.nombre}
+                            </option>
+                        ))}
+                    </select>
+                </article>
+            )
+            }
+            <button className="btn-primary btn-borde" onClick={clickEnBuscarEspacios} disabled={!esValido}>Buscar espacios</button>
         </section>
     );
 }
-
-const obtenerImagenPorNombre = (nombreTipo: string): string => {
-    switch (nombreTipo) {
-        case 'Espacios Deportivos':
-            return Deportivo;
-        case 'Salas Privadas':
-            return Salas;
-        case 'Gastronomia':
-            return Gastronomia;
-        default:
-            return '';
-    }
-};
 
 export default VistaClientePpal;

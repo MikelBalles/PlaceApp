@@ -24,6 +24,7 @@ public class ReservaUsuarioClienteDto {
 	private Timestamp fechaInicio;
 	private Timestamp fechaFin;
 	private double precioVenta;
+	private int idSubtipo;
 	
 	
 	

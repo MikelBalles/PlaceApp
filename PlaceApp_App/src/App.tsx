@@ -9,6 +9,7 @@ import Footer from './components/footer';
 import { sesionIniciada } from './datos/tipos';
 import { cerrarSesion, iniciarSesion, obtenerSesion } from './logica/manejarSesion';
 import { Route, Routes, useNavigate } from 'react-router-dom';
+import ListaEspacios from './components/ListaEspacios';
 function App() {
 
   const navigate = useNavigate();
@@ -46,21 +47,19 @@ function App() {
   }, []); 
   */
 
-
     return (    
-    <>
-    <Navbar sesionIniciada={estadoSesion} />
-    <div className='contenedor-general'>
-
-    <Routes>
-      <Route path="/login" element={<Login sesion={estadoSesion} iniciarSesion={gestionarInicioSesion} />} />
-      <Route path="/cliente" element={<VistaClientePpal sesion={estadoSesion} cerrarSesion={gestionarCerrarSesion} />} />
-      <Route path="/reservarEspacio" element={<VistaReservarEspacio sesion={estadoSesion} />} />
-    </Routes>
-
-    </div>
-    <Footer />
-  </>
+      <>
+      <Navbar sesionIniciada={estadoSesion} />
+      <div className='contenedor-general'>
+        <Routes >
+          <Route path="/login" element={<Login sesion={estadoSesion} iniciarSesion={gestionarInicioSesion} />} />
+          <Route path="/cliente" element={<VistaClientePpal sesion={estadoSesion} cerrarSesion={gestionarCerrarSesion} />} />
+          <Route path="/reservarEspacio/:idEspacio" element={<VistaReservarEspacio sesion={estadoSesion} />} />
+          <Route path="/espacios/:idSubtipo/:idProv" element={<ListaEspacios sesion={estadoSesion} />} />
+        </Routes>
+      </div>
+      <Footer />
+    </>
   );
 }
 
