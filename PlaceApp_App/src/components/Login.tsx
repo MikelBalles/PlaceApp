@@ -54,7 +54,7 @@ const Login: React.FC<LoginProps> = ( {sesion, iniciarSesion} ) => {
       "password": estadoInputs[1].value
     }
     
-    fetch(URL_PETICION_BBDD + '/rest/propietario/iniciarSesion', {
+    fetch(URL_PETICION_BBDD + '/rest/iniciarSesion', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(datos),

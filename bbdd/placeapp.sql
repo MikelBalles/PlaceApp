@@ -328,7 +328,7 @@ LOCK TABLES `reservas` WRITE;
 INSERT INTO `reservas` VALUES 
 (1,1,'usuario1@example.com',25.00,'2024-08-01 10:00:00','2023-08-01 12:00:00',1,'Reunión de trabajo'),
 (2,6,'usuario2@example.com',5.00,'2024-08-05 10:00:00','2024-08-05 11:00:00',1,'Llegaremos 5 min tarde'),
-(3,6,'usuario3@example.com',5.00,'2024-08-05 11:00:00','2024-08-06 12:00:00',1,'---- Ejemplo de observaciones ---'),
+(3,6,'usuario3@example.com',5.00,'2024-08-05 11:00:00','2024-08-05 12:00:00',1,'---- Ejemplo de observaciones ---'),
 (4,3,'usuario3@example.com',50.00,'2024-08-05 10:00:00','2024-08-05 12:00:00',1,''),
 (5, 11, 'usuario1@example.com', 15.00, '2024-08-10 09:00:00', '2024-08-10 11:00:00', 1, 'Reunión de trabajo con clientes'),
 (6, 10, 'usuario2@example.com', 8.00, '2024-08-12 18:00:00', '2024-08-12 19:00:00', 1, 'Partido de pádel después del trabajo'),

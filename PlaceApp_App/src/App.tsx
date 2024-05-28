@@ -1,14 +1,18 @@
 
 import './App.scss'
 import { useEffect, useState } from 'react';
-import VistaClientePpal from './components/VistaClientePpal';
-import VistaReservarEspacio from './components/VistaReservarEspacio';
+import VistaClientePpal from './components/vistas/VistaClientePpal';
 import Navbar from './components/NavBar';
 import Login from './components/Login';
 import Footer from './components/footer';
 import { sesionIniciada } from './datos/tipos';
 import { cerrarSesion, iniciarSesion, obtenerSesion } from './logica/manejarSesion';
 import { Route, Routes, useNavigate } from 'react-router-dom';
+import ListaEspacios from './components/vistas/ListaEspacios';
+import ListaReservas from './components/vistas/ListaReservas';
+import VistaReservarEspacio from './components/vistas/VistaReservarEspacio';
+import { RUTAS } from './datos/rutas';
+import LandingPage from './components/vistas/landingPage';
 function App() {
 
   const navigate = useNavigate();
@@ -36,31 +40,21 @@ function App() {
   }
 
 
-  //!EJEMPLO: Esto tiene que ir fuera
-  /*
-  useEffect(() => {
-    fetch('http://localhost:8088/rest/cliente/espacio/cliente/1')
-      .then(response => response.json())
-      .then(data => setEspacioDto(data))
-      .catch(error => console.log(error));
-  }, []); 
-  */
-
-
     return (    
-    <>
-    <Navbar sesionIniciada={estadoSesion} />
-    <div className='contenedor-general'>
-
-    <Routes>
-      <Route path="/login" element={<Login sesion={estadoSesion} iniciarSesion={gestionarInicioSesion} />} />
-      <Route path="/cliente" element={<VistaClientePpal sesion={estadoSesion} cerrarSesion={gestionarCerrarSesion} />} />
-      <Route path="/reservarEspacio" element={<VistaReservarEspacio sesion={estadoSesion} />} />
-    </Routes>
-
-    </div>
-    <Footer />
-  </>
+      <>
+      <Navbar sesionIniciada={estadoSesion} />
+      <div className='contenedor-general'>
+        <Routes >
+          <Route path="/" element={<LandingPage />} />
+          <Route path={RUTAS.login} element={<Login sesion={estadoSesion} iniciarSesion={gestionarInicioSesion} />} />
+          <Route path={RUTAS.cliente} element={<VistaClientePpal sesion={estadoSesion} cerrarSesion={gestionarCerrarSesion} />} />
+          <Route path={`${RUTAS.reservarEspacio}/:idEspacio`} element={<VistaReservarEspacio sesion={estadoSesion} />} />
+          <Route path="/espacios/:idSubtipo/:idProv" element={<ListaEspacios sesion={estadoSesion} />} />
+          <Route path="/mis-reservas" element={<ListaReservas sesion={estadoSesion}/>}/>
+        </Routes>
+      </div>
+      <Footer />
+    </>
   );
 }
 

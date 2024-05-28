@@ -1,31 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, {useState } from 'react';
+import { horaConDisponibilidad } from '../datos/tipos';
 
 interface SelectHorasProps {
-  horas: number[];
-  noDisponible: number[];
+  horas: horaConDisponibilidad[];
+  actualizarHora: (hora: number) => void;
 }
 
-const SelectHoras: React.FC<SelectHorasProps> = ({ horas, noDisponible }) => {
+const SelectHoras: React.FC<SelectHorasProps> = ({ horas, actualizarHora }) => {
   const [horaSeleccionada, setHoraSeleccionada] = useState<number | null>(null);
 
   const handleClick = (hora: number) => {
     setHoraSeleccionada(hora);
+    actualizarHora(hora);
   };
-
-  useEffect(() => {
-    console.log(horaSeleccionada);
-  }, [horaSeleccionada]);
 
 return (
     <div className='contenedor-horas'>
         {horas.map((hora, index) => (
             <button 
+                type='button'
                 key={index} 
-                onClick={() => handleClick(hora)} 
-                disabled={noDisponible.includes(hora)}
-                className={`select-hora ${horaSeleccionada === hora ? 'selected' : ''}`}
+                onClick={() => handleClick(hora.horaDate.getHours())} 
+                disabled={!hora.disponible}
+                className={`select-hora ${horaSeleccionada === hora.horaDate.getHours() ? 'selected' : ''}`}
                             >
-                {hora}:00
+                {hora.horaDate.getHours()}:00
             </button>
         ))}
     </div>

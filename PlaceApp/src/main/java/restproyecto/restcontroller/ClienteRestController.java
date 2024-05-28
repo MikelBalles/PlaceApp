@@ -104,6 +104,7 @@ public class ClienteRestController {
 				ruDto.setFechaInicio(r.getFechaInicio());
 				ruDto.setFechaFin(r.getFechaFin());
 				ruDto.setPrecioVenta(r.getPrecioVenta());
+				ruDto.setIdSubtipo(r.getEspacio().getSubtipo().getIdSubtipo());
 				reservasDto.add(ruDto);
 			}
 			
@@ -187,6 +188,7 @@ public class ClienteRestController {
 		
 		@PostMapping("/espacio/altaReserva")
 		public ResponseEntity<?> reservarEspacio(@RequestBody ReservaUsuarioDto bodyDto) {
+			System.out.println(bodyDto);
 		    // Comprobamos si el usuario tiene el rol de cliente
 		    Usuario usu = usuarioService.obtenerUsuarioPorId(bodyDto.getUsernameReserva());
 		    if (usu == null) {
