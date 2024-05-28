@@ -23,7 +23,6 @@ const TarjetaDetalle: React.FC<Props> = ({ objeto }) => {
 
     const navigate = useNavigate();
 
-    // Lógica y renderizado del componente
     return (
         <article className='item detalle-item-lista'>
             <div className=' icon-tipo'>
@@ -40,9 +39,18 @@ const TarjetaDetalle: React.FC<Props> = ({ objeto }) => {
                 )}
 
                 {esTipoReserva(objeto) && (
-                    <div>
-                        {/* Renderizar propiedades del objeto de tipo2 */}
+                    <>
+                    <div className='date-precio'>
+                        <div className='fecha-horas'>
+                            <p className='fecha'>{new Date(objeto.fechaInicio).toLocaleDateString('es-ES', {day: '2-digit', month: '2-digit', year: 'numeric'})}</p>
+                            <p className='horas'><span className='hora'>{new Date(objeto.fechaInicio).getHours()}:00</span> a <span className='hora'>{new Date(objeto.fechaFin).getHours()}:00</span></p>
+                        </div>
+                        <p className='precio'>{objeto.precioVenta}€</p>
                     </div>
+                    <h2 className='titulo'>{objeto.nombreEspacio}</h2>
+                    <p className='observaciones'>{objeto.observacionesReserva}</p>
+                    <button className='btn-primary btn-borde' onClick={() => navigate(`/ver-reserva/${objeto.idReserva}`)}>Ver detalle</button>
+                </>
                 )}
 
             </div>

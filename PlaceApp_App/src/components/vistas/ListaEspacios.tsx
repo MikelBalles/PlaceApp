@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { espacioClienteDto, sesionIniciada } from '../datos/tipos';
-import { URL_PETICION_BBDD } from '../datos/constantes';
-import TarjetaDetalle from './TarjetaDetalle';
-import Volver from './Volver';
+import { espacioClienteDto, sesionIniciada } from '../../datos/tipos';
+import { URL_PETICION_BBDD } from '../../datos/constantes';
+import TarjetaDetalle from '../TarjetaDetalle';
+import Volver from '../Volver';
+import VistaVacia from '../modales/VistaVacia';
 
 interface ListaEspaciosProps {
     sesion: sesionIniciada | undefined;
@@ -39,6 +40,13 @@ const ListaEspacios: React.FC<ListaEspaciosProps> = ({sesion}) => {
         return (
             <h1>Cargando espacios...</h1>
         );
+    } else if (espacios.length === 0) {
+        return (
+            <>
+            <Volver ruta='/cliente'></Volver>
+            <VistaVacia mensaje='Vaya, parece que aún no tenemos ningún espacio de ese tipo en este lugar'></VistaVacia>
+            </>
+        )
     } else {
         return (
 

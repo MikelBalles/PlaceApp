@@ -1,12 +1,14 @@
-import React, { Fragment, useEffect, useMemo, useState } from "react"
-import { Reserva, espacioDto, extraDto, horaConDisponibilidad, modeloInputs, reservaEspacioDto, sesionIniciada } from "../datos/tipos";
-import Input from "./Input";
-import SelectHoras from "./SelectHoras";
-import ExtrasReserva from "./ExtrasReserva";
-import { obtenerHorasDisponiblesYNoDisponibles, obtenerMaxHorasReservables } from "../logica/gestionarFechas";
-import { IR_ATRAS, URL_PETICION_BBDD } from "../datos/constantes";
+import React, { Fragment, useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
-import Volver from "./Volver";
+
+import { Reserva, espacioDto, extraDto, horaConDisponibilidad, modeloInputs, reservaEspacioDto, sesionIniciada } from "../../datos/tipos";
+import { obtenerHorasDisponiblesYNoDisponibles, obtenerMaxHorasReservables } from "../../logica/gestionarFechas";
+import { IR_ATRAS, URL_PETICION_BBDD } from "../../datos/constantes";
+
+import Input from "../Input";
+import SelectHoras from "../SelectHoras";
+import ExtrasReserva from "../ExtrasReserva";
+import Volver from "../Volver";
 
 interface VistaReservarEspacioProps {
     sesion: sesionIniciada | undefined;

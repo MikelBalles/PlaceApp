@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { provinciaDto, sesionIniciada, subtipoDto, tipoDto } from '../datos/tipos';
-import { URL_PETICION_BBDD } from '../datos/constantes';
+import { provinciaDto, sesionIniciada, subtipoDto, tipoDto } from '../../datos/tipos';
+import { URL_PETICION_BBDD } from '../../datos/constantes';
 import { useNavigate } from 'react-router-dom';
-import { obtenerImagenPorNombre, obtenerImagenSubtipo } from '../logica/iconosTipos';
+import { obtenerImagenPorNombre, obtenerImagenSubtipo } from '../../logica/iconosTipos';
 
 
 
@@ -131,7 +131,7 @@ const VistaClientePpal: React.FC<VistaClientePpalProps> = ({ sesion, cerrarSesio
     return (
         <section className="VistaClientePpal-container contenedor-botones">
             <div className="contenedor-botones">
-                <button className="btn-primary btn-borde">Gestionar mis reservas</button>
+                <button className="btn-primary btn-borde" onClick={() => {navigate('/mis-reservas')}}>Gestionar mis reservas</button>
                 <button className="btn-primary btn-borde">Modificar mis datos</button>
                 <button className="btn-primary btn-cerrar-sesion" onClick={cerrarSesion}>Cerrar Sesion</button>
             </div>
