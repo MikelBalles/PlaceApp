@@ -1,5 +1,8 @@
 import React from 'react';
 import ilusHome from '../../assets/infografia_home.svg';
+import ilusContacto from   '../../assets/ilustracion-contacto.svg';
+import iconoMail from  '../../assets/mail-ico.svg';
+import iconoTelefono from  '../../assets/tel-ico.svg';
 import ilusPropietario from '../../assets/ilus-perfil-propietario.svg';
 import ilusCliente from '../../assets/ilus-perfil-usuario.svg';
 import { useNavigate } from 'react-router-dom';
@@ -23,7 +26,7 @@ const LandingPage: React.FC = () => {
             </div>
         </section>
 
-        <section className='seccion-landing como-funciona contenedor-flex-ver'>
+        <section id="como-funciona" className='seccion-landing como-funciona contenedor-flex-ver'>
             <h2 className='titulo-1'>Cómo funciona PlaceApp</h2>
             <p className='subtitulo'>Conectamos a propietarios y a usuarios, con la intención de facilitar los procesos y unificar en un único lugar la gestión de reservas de tus espacios favoritos. </p>
             <div className='contenedor-perfiles contenedor-flex-hor'>
@@ -44,7 +47,7 @@ const LandingPage: React.FC = () => {
                 />
             </div>
         </section>
-        <section className='seccion-landing preguntas-frecuentes contenedor-flex-ver'>
+        <section id="faqs" className='seccion-landing preguntas-frecuentes contenedor-flex-ver'>
             <h2 className='titulo-1'>Preguntas frecuentes</h2>
             <p className='subtitulo'>¿Hay algo que no ha quedado claro? Estas son algunas de las dudas más frecuentes de nuestros usuarios</p>
             <div className='contenedor-dudas'>
@@ -71,8 +74,22 @@ const LandingPage: React.FC = () => {
             </div>
         </section>
 
-        <section className='seccion-landing contacto contenedor-flex-hor'>
+        <section id="contacto" className='seccion-landing contacto contenedor-flex-hor'>
+            <div className='col-flex'>
+                <img src={ilusContacto} alt='' />
+            </div>
+            <div className='col-flex seccion-landing contenedor-flex-ver'>
             <h2 className='titulo-1'>Contacta con nosotros</h2>
+                <p className='subtitulo'>¿Sigues con dudas? No dudes en ponerte en contacto con nosotros a través de los siguientes canales:</p>
+                <div className='item-contacto'>
+                    <img src={iconoMail} alt="" />
+                    <p>mail@example.org</p>
+                </div>
+                <div className='item-contacto'>
+                    <img src={iconoTelefono} alt="" />
+                    <p>XXX - XXX - XXX</p>
+                </div>
+            </div>
         </section>
         </>
     );

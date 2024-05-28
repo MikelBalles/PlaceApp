@@ -1,7 +1,10 @@
 import React from 'react';
 import logo_PlaceApp from '../assets/logo_PlaceApp.svg';
+import iconoPlaceApp from '../assets/icono_PlaceApp.svg';
 import { sesionIniciada } from '../datos/tipos';
 import { Link } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
+import { RUTAS } from '../datos/rutas';
 
 interface NavbarProps {
     sesionIniciada: sesionIniciada | undefined;
@@ -12,14 +15,15 @@ const Navbar: React.FC<NavbarProps> = ({ sesionIniciada, mostrarEnlaceAreaPriv=t
     return (
         <div className='navbar-bg'>
             <nav className='navbar'>
-                <div className='logo-navbar'>
+                <div className='cont-logo-navbar'>
                     <Link to='/'>
-                        <img src={logo_PlaceApp} alt='logo' />
+                        <img className='logo-navbar' src={logo_PlaceApp} alt='Ir a home' />
+                        <img className='icono-navbar' src={iconoPlaceApp} alt='Ir a home' />
                     </Link>
                 </div>
                 <div className="links-acceso">
-                    <a className="btn-primary btn-sin-relleno" href="#">Cómo funciona</a>
-                    <a className='btn-primary btn-sin-relleno' href="#">Preguntas frecuentes</a>
+                    <HashLink className="btn-primary btn-sin-relleno" smooth to={RUTAS.comoFunciona}>Cómo funciona</HashLink>
+                    <HashLink className='btn-primary btn-sin-relleno' smooth to={RUTAS.faqs}>Preguntas frecuentes</HashLink>
                 </div>
 
                 {sesionIniciada ? (

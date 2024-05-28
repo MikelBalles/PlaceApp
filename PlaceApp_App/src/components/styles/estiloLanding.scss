@@ -109,3 +109,19 @@ h3 {
         }
     }
 }
+
+.contacto {
+    .item-contacto {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 2.6rem;
+        align-self: stretch; 
+
+        img {
+            width: 5rem !important;
+            height: 5rem !important;
+            min-width: 0 !important;
+        }
+    }
+}

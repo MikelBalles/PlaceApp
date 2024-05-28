@@ -3,4 +3,8 @@ export const RUTAS = {
     cliente: '/cliente',
     reservarEspacio: '/reservarEspacio',
     misReservas: '/mis-reservas',
+    comoFunciona: '/#como-funciona',
+    faqs: '/#faqs',
+    contacto: '/#contacto',
+    textoLegal: '/texto-legal'
 }
