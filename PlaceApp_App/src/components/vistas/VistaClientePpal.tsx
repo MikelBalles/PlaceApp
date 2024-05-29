@@ -1,8 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { provinciaDto, sesionIniciada, subtipoDto, tipoDto } from '../../datos/tipos';
 import { URL_PETICION_BBDD } from '../../datos/constantes';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { obtenerImagenPorNombre, obtenerImagenSubtipo } from '../../logica/iconosTipos';
+import PaginaEspecial from '../modales/paginaEspecial';
+import InfoModal from '../modales/InfoModal';
+import { RUTAS } from '../../datos/rutas';
+import { Link } from 'react-router-dom';
+import VistaVacia from '../modales/VistaVacia';
 
 
 
@@ -22,6 +27,7 @@ interface TipoYSubtipoProps {
 const VistaClientePpal: React.FC<VistaClientePpalProps> = ({ sesion, cerrarSesion }) => {
 
     const navigate = useNavigate();
+    const location = useLocation();
 
     //Petición a la base de datos para obtener los tipos y subtipos
     const obtenerTiposSubtipos = async () => {
@@ -34,6 +40,7 @@ const VistaClientePpal: React.FC<VistaClientePpalProps> = ({ sesion, cerrarSesio
             setTiposSubtipos(data);
         } catch (error) {
             console.error('Error al obtener tipos y subtipos del API:', error);
+            <VistaVacia irAtras mensaje='Tenemos problemas recuperando la información. Vuelve a intentarlo'/>
         }
     };
 
@@ -77,8 +84,6 @@ const VistaClientePpal: React.FC<VistaClientePpalProps> = ({ sesion, cerrarSesio
     }
 
     const clickEnBuscarEspacios = () => {
-        console.log('Datos', selectedTipo, selectedSubtipo, selectedProvincia);
-
         //Comprobamos si existen los valores seleccionados
         if (!esValido) {
             alert('Debes seleccionar un tipo, un subtipo y una provincia para buscar espacios');
@@ -124,17 +129,21 @@ const VistaClientePpal: React.FC<VistaClientePpalProps> = ({ sesion, cerrarSesio
     const tiposUnicos = obtenerTiposUnicos();
 
     if (!sesion) {
-        console.log('No hay sesión iniciada');
-        return null;
+        return (
+            <PaginaEspecial tipo='sesion' />
+        );
     }
 
     return (
         <section className="VistaClientePpal-container contenedor-botones">
             <div className="contenedor-botones">
-                <button className="btn-primary btn-borde" onClick={() => {navigate('/mis-reservas')}}>Gestionar mis reservas</button>
-                <button className="btn-primary btn-borde">Modificar mis datos</button>
+                <Link className="btn-primary btn-borde" to={RUTAS.misReservas}>Gestionar mis reservas</Link>
+                <Link className="btn-primary btn-borde" to={RUTAS.modificarUsuario}>Modificar mis datos</Link>
                 <button className="btn-primary btn-cerrar-sesion" onClick={cerrarSesion}>Cerrar Sesion</button>
             </div>
+            {location.state?.mensaje && (
+                <InfoModal tipo='OK' mensaje={location.state.mensaje} />
+            )}
             <header className="reserva-header">
                 <h2>¿Quieres realizar una reserva?</h2>
             </header>

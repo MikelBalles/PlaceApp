@@ -20,11 +20,14 @@ const ListaEspacios: React.FC<ListaEspaciosProps> = ({sesion}) => {
         fetch(`${URL_PETICION_BBDD}/rest/comun/espacio/subtipo/provincia/${idSubtipo}/${idProv}`)
             .then(response => response.json())
             .then(data => {
-                setEspacios(data);
-                console.log(data);
-                
+                setEspacios(data);                
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => {
+                console.error('Error:', error);
+                return (
+                    <VistaVacia irAtras mensaje='Tenemos problemas recuperando los espacios disponiles. Vuelve a intentarlo más adelante'></VistaVacia>
+                )
+            });
     }, [idSubtipo, idProv]);
 
     if (!sesion) {
@@ -38,7 +41,7 @@ const ListaEspacios: React.FC<ListaEspaciosProps> = ({sesion}) => {
 
     if (!espacios) {
         return (
-            <h1>Cargando espacios...</h1>
+            <VistaVacia irAtras mensaje='Tenemos problemas recuperando los espacios disponiles. Vuelve a intentarlo más adelante'></VistaVacia>
         );
     } else if (espacios.length === 0) {
         return (

@@ -2,16 +2,19 @@ import React from 'react';
 import logo_PlaceApp from '../assets/logo_PlaceApp.svg';
 import iconoPlaceApp from '../assets/icono_PlaceApp.svg';
 import { sesionIniciada } from '../datos/tipos';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 import { RUTAS } from '../datos/rutas';
 
 interface NavbarProps {
     sesionIniciada: sesionIniciada | undefined;
-    mostrarEnlaceAreaPriv?: boolean;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ sesionIniciada, mostrarEnlaceAreaPriv=true} ) => {
+const Navbar: React.FC<NavbarProps> = ({ sesionIniciada }) => {
+    const location = useLocation();
+
+    const esVistaCliente = location.pathname === RUTAS.cliente;
+
     return (
         <div className='navbar-bg'>
             <nav className='navbar'>
@@ -29,12 +32,14 @@ const Navbar: React.FC<NavbarProps> = ({ sesionIniciada, mostrarEnlaceAreaPriv=t
                 {sesionIniciada ? (
                     <div className='acceso-area-privada'>
                         <p className='bienvenida-login'> Bienvenido, {sesionIniciada.nombreUsuario} <span className='enfasis'> {sesionIniciada.nombrePerfil.slice(5)}</span> </p>
-                       { mostrarEnlaceAreaPriv && <p className='subtitulo-login'>Acceder a mi área personal</p>}
+                        {!esVistaCliente && (
+                            <Link to={RUTAS.cliente} className='subtitulo-login'>Accede a tu área personal</Link>
+                        )}
                     </div>
                 ) : (
                     <div className='links-cuenta'>
-                        <Link className="btn-primary btn-borde" to='/login'>Iniciar sesión</Link>
-                        <a className="btn-primary btn-relleno" href='#'>Registrarse</a>
+                        <Link className="btn-primary btn-borde" to={RUTAS.login}>Iniciar sesión</Link>
+                        <Link className="btn-primary btn-relleno" to={RUTAS.registro}>Registrarse</Link>
                     </div>
                 )}
             </nav>

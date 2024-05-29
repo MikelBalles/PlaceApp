@@ -58,6 +58,10 @@ public class UserManagementRestController {
 	    public ResponseEntity<?> iniciarSesion(@RequestBody Usuario usuario) {
 	        Usuario usuarioAutenticado = usuarioService.login(usuario.getUsername(), usuario.getPassword());
 	        if (usuarioAutenticado != null) {
+	        	int perfilUsu = usuarioAutenticado.getPerfil().getIdPerfil();
+	        	if (perfilUsu == 2 || perfilUsu==1) {
+		            return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body("Aún no soportamos el inicio de perfiles propietarios o administradores");
+	        	}
 	            // Construir un objeto DTO con la información requerida
 	            UsuarioPerfilDto usuarioPerfilDto = new UsuarioPerfilDto();
 	            usuarioPerfilDto.setUsername(usuarioAutenticado.getUsername());
@@ -66,7 +70,7 @@ public class UserManagementRestController {
 	            usuarioPerfilDto.setNombrePerfil(usuarioAutenticado.getPerfil().getNombre());
 	            return ResponseEntity.ok(usuarioPerfilDto);
 	        } else {
-	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Credenciales inválidas");
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Las credenciales no son correctas. Revisa el usuario o la contraseña");
 	        }
 	    }
 	

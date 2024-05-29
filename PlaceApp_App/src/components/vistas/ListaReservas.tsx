@@ -26,11 +26,15 @@ const ListaReservas: React.FC<ListaReservasProps> = ({sesion}) => {
         fetch(`${URL_PETICION_BBDD}/rest/cliente/reserva/${idUsuario}`)
             .then(response => response.json())
             .then(data => {
-                setReservas(ordenarReservas(data));
-                console.log(data);
-                
+                setReservas(ordenarReservas(data));                
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => {
+                console.error('Error:', error);
+                return (
+                    <VistaVacia irAtras mensaje='Tenemos problemas recuperando tus reservas. Vuelve a intentarlo más adelante'></VistaVacia>
+                )
+            }
+            );
     }, [idUsuario]);
     
     if (!sesion) {
@@ -44,7 +48,7 @@ const ListaReservas: React.FC<ListaReservasProps> = ({sesion}) => {
 
     if (!reservas) {
         return (
-            <h1>Cargando reservas...</h1>
+            <VistaVacia irAtras mensaje='Tenemos problemas recuperando tus reservas. Vuelve a intentarlo más adelante'></VistaVacia>
         );
     } else if (reservas.length === 0) {
         return (
