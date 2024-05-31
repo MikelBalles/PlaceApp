@@ -64,6 +64,10 @@ const VistaReservarEspacio: React.FC<VistaReservarEspacioProps> = ({ sesion }) =
         }
         return true;
     }, [fechaSeleccionada, horaInicio, horaFin]);
+
+    useEffect(() => {
+        setHoraInicio(0)
+    }, [fechaSeleccionada]);
     
     const actualizarFecha = (name: string, value: string, esValido: boolean) => {
         const inputActualizado = { name, value, esValido };
