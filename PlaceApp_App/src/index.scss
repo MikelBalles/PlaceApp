@@ -926,6 +926,11 @@ footer {
 
     .btn-primary {
       width: 100%;
+      align-self: stretch;
+    }
+
+    @media screen and (max-width: 500px) {
+      flex-wrap: wrap;
     }
   }
 }
