@@ -50,6 +50,7 @@ const VistaReservarEspacio: React.FC<VistaReservarEspacioProps> = ({ sesion }) =
         }
         if (fechaSeleccionada) {
             const fechaActual = new Date();
+                fechaActual.setHours(0, 0, 0, 0);
             if (fechaSeleccionada < fechaActual) {
                 return false;
             }
