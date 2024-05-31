@@ -4,6 +4,7 @@ import infografiaLogin from '../assets/images/infografia-login.svg';
 import { URL_PETICION_BBDD } from '../datos/constantes';
 import { modeloInputs, sesionIniciada } from '../datos/tipos';
 import { useNavigate } from 'react-router-dom';
+import InfoModal from './modales/InfoModal';
 
 interface LoginProps {
   iniciarSesion: (data: sesionIniciada) => void;
@@ -70,7 +71,7 @@ const Login: React.FC<LoginProps> = ( {sesion, iniciarSesion} ) => {
         });
       }
     }).catch(function () {
-      setMsgLogin('Error en la petición');
+      setMsgLogin('No se ha podido validar la conexión con el servidor');
     });
   };
 
@@ -82,7 +83,7 @@ const Login: React.FC<LoginProps> = ( {sesion, iniciarSesion} ) => {
       </div>
       <div id='datos-login' className='col-flex contenedor-flex-ver'>
         <h2 className='titulo-2'>Bienvenido</h2>
-        <p className='error-msg'>{msgLogin}</p>
+        <InfoModal tipo='ERROR' mensaje={msgLogin} />
         <Input
           name={estadoInputs[0].name}
           label='Correo electrónico'

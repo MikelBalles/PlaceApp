@@ -11,6 +11,7 @@ interface InputProps {
     minLength?: number;
     maxLength?: number;
     placeholder?: string;
+    min?: string;
 }
 
 //Definimos el componente
@@ -24,6 +25,7 @@ const Input: React.FC<InputProps> = ({
     minLength,
     maxLength,
     placeholder,
+    min
 
 }) => {
     const [errorMessage, setErrorMessage] = useState<string>('');
@@ -68,7 +70,7 @@ const Input: React.FC<InputProps> = ({
     return (
         <div className='grupo-input'>
             <label htmlFor={name}>{label}</label>
-            <input  name={name} type={type} value={value}
+            <input  name={name} type={type} value={value} min={min}
                     onChange={comprobarCambios} placeholder={placeholder}
                     />
             {!inputValido && 

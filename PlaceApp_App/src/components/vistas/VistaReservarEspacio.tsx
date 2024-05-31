@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useMemo, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { Reserva, espacioDto, extraDto, horaConDisponibilidad, modeloInputs, reservaEspacioDto, sesionIniciada } from "../../datos/tipos";
 import { obtenerHorasDisponiblesYNoDisponibles, obtenerMaxHorasReservables } from "../../logica/gestionarFechas";
@@ -9,6 +9,10 @@ import Input from "../Input";
 import SelectHoras from "../SelectHoras";
 import ExtrasReserva from "../ExtrasReserva";
 import Volver from "../Volver";
+import PaginaEspecial from "../modales/paginaEspecial";
+import InfoModal from "../modales/InfoModal";
+import { RUTAS } from "../../datos/rutas";
+import VistaVacia from "../modales/VistaVacia";
 
 interface VistaReservarEspacioProps {
     sesion: sesionIniciada | undefined;
@@ -22,6 +26,7 @@ const inputsIniciales: modeloInputs[] = [
 const VistaReservarEspacio: React.FC<VistaReservarEspacioProps> = ({ sesion }) => {
 
     const {idEspacio} = useParams();
+    const navigate = useNavigate();
     
     const calcularHoraFin = (horaInicio: number, numHoras: number) => {
         setHoraFin(horaInicio + numHoras);
@@ -37,16 +42,21 @@ const VistaReservarEspacio: React.FC<VistaReservarEspacioProps> = ({ sesion }) =
     const [conjuntoHoras, setConjuntoHoras] = useState<horaConDisponibilidad[]>([]);
     const [maxHoras, setMaxHoras] = useState<number>(0);
     const [reservaEspacioDto, setReservaEspacioDto] = useState<Reserva[]>([]);
+    const [msgInfo, setMsgInfo] = useState<string>('');
     
     const esValido = useMemo(() => {
+        if (!fechaSeleccionada) {
+            return false;
+        }
         if (fechaSeleccionada) {
             const fechaActual = new Date();
+                fechaActual.setHours(0, 0, 0, 0);
             if (fechaSeleccionada < fechaActual) {
                 return false;
             }
             if (horaInicio <= 0 || horaInicio > 23) {
                 return false;
-            } else if (horaFin <= 0 || horaFin >= 23) {
+            } else if (horaFin <= 0 || horaFin > 24) {
                 return false;
             } else if (horaFin <= horaInicio) {
                 return false;
@@ -54,6 +64,10 @@ const VistaReservarEspacio: React.FC<VistaReservarEspacioProps> = ({ sesion }) =
         }
         return true;
     }, [fechaSeleccionada, horaInicio, horaFin]);
+
+    useEffect(() => {
+        setHoraInicio(0)
+    }, [fechaSeleccionada]);
     
     const actualizarFecha = (name: string, value: string, esValido: boolean) => {
         const inputActualizado = { name, value, esValido };
@@ -119,12 +133,30 @@ const VistaReservarEspacio: React.FC<VistaReservarEspacioProps> = ({ sesion }) =
     const enviarFormulario = (e: React.FormEvent) => {
         e.preventDefault();
         if (esValido) {
-
+            if (!espacioDto) {
+                window.scrollTo(0, 0);
+                setMsgInfo('Parece que no se ha podido cargar la información del espacio. Por favor, inténtalo de nuevo.');
+            }
+            if (!sesion) {
+                window.scrollTo(0, 0);
+                setMsgInfo('No se ha podido cargar la información de tu sesión. Por favor, vuelve a iniciar sesión.');
+            }
+            if (!fechaSeleccionada) {
+                window.scrollTo(0, 0);
+                setMsgInfo('Parece que no hay ninguna fecha seleccionada, o no es válda. Por favor, selecciona una fecha válida.');
+            }
             if (espacioDto && sesion && fechaSeleccionada) {
                 const fechaInicio = new Date(fechaSeleccionada);
                 fechaInicio.setHours(horaInicio);
                 const fechaFin = new Date(fechaSeleccionada);
                 fechaFin.setHours(horaFin);
+
+                const observacionesConExtras = `
+                ${estadoInputs[1].value}
+                ${extrasSeelecionados.length > 0 ? 'Extras seleccionados:' : ''}
+                ${extrasSeelecionados.map(extra => `${extra.nombre} - ${extra.precio}€`).join(',')}
+                `;
+
 
                 const objRes: reservaEspacioDto = {
                     idEspacio: espacioDto.idEspacio,
@@ -132,7 +164,7 @@ const VistaReservarEspacio: React.FC<VistaReservarEspacioProps> = ({ sesion }) =
                     precioVenta: precioTotal,
                     fechaInicioReserva: fechaInicio.toISOString() || '',
                     fechaFinReserva: fechaFin.toISOString() || '',
-                    observacionReserva: estadoInputs[1].value
+                    observacionReserva: observacionesConExtras
                 }
 
                 fetch(`${URL_PETICION_BBDD}/rest/cliente/espacio/altaReserva`, {
@@ -143,12 +175,17 @@ const VistaReservarEspacio: React.FC<VistaReservarEspacioProps> = ({ sesion }) =
                     body: JSON.stringify(objRes)
                 })
                     .then(response => response.json())
-                    .then(data => console.log(data))
-                    .catch(error => console.log(error));
+                    .then(data => {
+                        navigate(RUTAS.cliente, {state: {mensaje: `Se ha realizado la reserva co
+                        rrectamente. El identificador de la reserva es
+                         ${data.idReserva}`}} );
+                    })
+                    .catch(error => 
+                        {
+                            setMsgInfo(`Ha ocurrido un error al realizar la reserva. Por favor, inténtalo de nuevo. ${error}`)
+                        }
+                    );
             }
-
-        } else {
-            console.log('Formulario inválido');
         }
 
     }
@@ -162,20 +199,28 @@ const VistaReservarEspacio: React.FC<VistaReservarEspacioProps> = ({ sesion }) =
             .then(data => {
                 setEspacioDto(data)
             })
-            .catch(error => console.log(error));
+            .catch(error => {
+                console.log(error)
+                return (
+                    <VistaVacia mensaje='Tenemos problemas recuperando los espacios disponiles. Vuelve a intentarlo más adelante'></VistaVacia>
+                )
+            });
 
         fetch(`${URL_PETICION_BBDD}/rest/comun/reservas/espacio/${idEspacio}`)
             .then(response => response.json())
             .then(data => {
                 setReservaEspacioDto(data)
             })
-            .catch(error => console.log(error));
+            .catch(error => {
+                console.log(error)
+                return (
+                    <VistaVacia mensaje='Tenemos problemas recuperando la información. Vuelve a intentarlo más adelante'></VistaVacia>
+                )
+            });
     }, [idEspacio,]);
 
     useEffect(() => {
-        if (fechaSeleccionada) {
-            console.log('Entro aquí');
-            
+        if (fechaSeleccionada) {            
             const getNumeroHorasDisponibles = () => {
                 return obtenerHorasDisponiblesYNoDisponibles(fechaSeleccionada, reservaEspacioDto);
             }
@@ -199,16 +244,19 @@ const VistaReservarEspacio: React.FC<VistaReservarEspacioProps> = ({ sesion }) =
 
 
     if (!sesion) {
-        return <h1>Debes iniciar sesión para reservar un espacio</h1>
+        return (
+            <PaginaEspecial tipo="sesion"/>
+        )
     }
     return (
         <>
         <Volver ruta={IR_ATRAS}/>
             <h1 className="titulo-1 titulo-reserva">Reservar espacio</h1>
+            {msgInfo && <InfoModal mensaje={msgInfo} tipo="ERROR" />}
             <form onSubmit={enviarFormulario}>
                 <div className="contenedor-flex-hor contenedor-reserva">
                     <div className="col-flex contenedor-opciones">
-                        <Input name={estadoInputs[0].name} type="date" label="Selecciona una fecha" value={estadoInputs[0].value} manejarCambioValor={actualizarFecha} required />
+                        <Input name={estadoInputs[0].name} type="date" label="Selecciona una fecha" value={estadoInputs[0].value} manejarCambioValor={actualizarFecha} required min={new Date().toLocaleDateString('en-CA')}/>
                         {fechaSeleccionada &&
                             <>
                                 <label className="subtitulo">Escoge una hora de inicio</label>

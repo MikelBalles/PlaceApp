@@ -60,7 +60,7 @@ INSERT INTO `subtipos` VALUES
     (2,'Sala de conferencias',1),
     (3,'Salón de actos',2),
     (4,'Pistas de baloncesto',4),
-    (5,'Clases de pádel',4),
+    (5,'Pistas de pádel',4),
     (6,'Pistas de fútbol',4),
     (7,'Sala polivalente', 3);
 /*!40000 ALTER TABLE `subtipos` ENABLE KEYS */;
@@ -245,9 +245,9 @@ INSERT INTO `espacios` VALUES
 	(2,'Salón de actos Ayto.Zarautz','Salón de actos del Ayuntamiento de Zarautz','Musika Plaza',20800,1,350.00,3,22,'mikel@fp.com'),
 	(3, 'Sala multiusos Ayuntamiento Valdetorres','Sala polivalente para organizar eventos que cuenta con 30 m2','Calle Mayor,22', 28150, 1, 25.00, 7, 1, 'alejandro@fp.com'),
   (4, 'Pista de baloncesto Polideportivo Zarautz','Pista de baloncesto en el polideportivo municipal','Calle Deportes, 1', 28000,1, 10.00, 4, 22, 'mikel@fp.com'),
-  (5, 'Pista de pádel 1 Club Deportivo Zarautz','Pista de pádel exterior. Cristal','Calle Deportes, 2', 28000,1, 4.00, 4, 22, 'mikel@fp.com'),
-  (6, 'Pista de pádel 2 Club Deportivo Zarautz','Pista de pádel interior. Cristal','Calle Deportes, 2', 28000,1, 5.00, 4, 22, 'mikel@fp.com'),
-  (7, 'Pista de fútbol 11 Polideportivo Zarautz','Campo de fútbol 11 de césped artificial','Calle Deportes, 3', 28000,1, 50.00, 4, 22, 'mikel@fp.com'),
+  (5, 'Pista de pádel 1 Club Deportivo Zarautz','Pista de pádel exterior. Cristal','Calle Deportes, 2', 28000,1, 4.00, 5, 22, 'mikel@fp.com'),
+  (6, 'Pista de pádel 2 Club Deportivo Zarautz','Pista de pádel interior. Cristal','Calle Deportes, 2', 28000,1, 5.00, 5, 22, 'mikel@fp.com'),
+  (7, 'Pista de fútbol 11 Polideportivo Zarautz','Campo de fútbol 11 de césped artificial','Calle Deportes, 3', 28000,1, 50.00, 6, 22, 'mikel@fp.com'),
   (8, 'Sala de Reuniones Innovación', 'Sala de reuniones equipada con tecnología de punta para presentaciones y videoconferencias.', 'Calle Innovación, 10', 28010, 1, 30.00, 2, 1, 'alejandro@fp.com'),
   (9, 'Sala de Eventos Máxima - Salón Principal', 'Espacio amplio y versátil para eventos de todo tipo, capacidad para 100 personas.', 'Avenida Principal, 50', 28020, 1, 200.00, 3, 1, 'mikel@fp.com'),
   (10, 'Pista de pádel Cubierta - Número 1', 'Pista de pádel techada con iluminación LED, ideal para jugar en cualquier clima.', 'Calle Deportes, 3', 28000, 1, 8.00, 5, 1, 'alejandro@fp.com'),
@@ -289,7 +289,7 @@ INSERT INTO `extras` VALUES
 (6, 'Servicio de Catering', 'Opciones variadas de catering para eventos y reuniones.', 50.00, 9),
 (7, 'Parking Privado', 'Acceso a parking privado para los asistentes al evento.', 20.00, 9),
 (8, 'Alquiler de Raquetas', 'Alquiler de raquetas y pelotas para jugar al pádel.', 5.00, 10),
-(9, 'Clases de Tenis', 'Clases particulares de tenis con entrenadores profesionales.', 30.00, 11);
+(9, 'Clases particulares', 'Clases particulares de pádel con entrenadores profesionales.', 30.00, 10);
 
 /*!40000 ALTER TABLE `extras` ENABLE KEYS */;
 UNLOCK TABLES;

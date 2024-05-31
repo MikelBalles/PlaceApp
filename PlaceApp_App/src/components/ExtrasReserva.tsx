@@ -29,7 +29,7 @@ const ExtrasReserva: React.FC<ExtrasReservaProps> = ({ extra , onClickExtraProps
                     <p>{extra?.descripcion}</p>
                 </div>
                 <div className="col-flex contenedor-flex-ver mini-gap">
-                    <p>{extra?.precio} € por hora</p>
+                    <p className="precio-extra">{extra?.precio} € por hora</p>
                     <button className={nombreClase}
                             onClick={onClickExtra}
                             type="button" >
